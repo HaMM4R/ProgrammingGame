@@ -40,8 +40,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5501642059208699251}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4315ee2d546ac9742889ce61c856b7c3, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a663c4f42a4c964c987ca32337fb304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridObject: {fileID: 1290891189224371284, guid: 988cdb4567e4b314c80e3ae4050f36b8,
+  gridObject: {fileID: 1290891189224371284, guid: ef7b29e9ddf3d42459ebebfc99ec8a49,
     type: 3}
+  numberOfXGrid: 0
+  numberOfYGrid: 0
