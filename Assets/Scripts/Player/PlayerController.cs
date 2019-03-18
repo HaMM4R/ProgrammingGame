@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
         switch (switchCase)
         {
             case 0:
-                if(currentY != yMax)
+                if(currentY != yMax - 1)
                     currentY += 1; 
                 break;
             case 1:
@@ -67,12 +67,12 @@ public class PlayerController : MonoBehaviour
                 break;
             case 3:
 
-                if (currentX != xMax)
+                if (currentX != xMax - 1)
                     currentX += 1;
                 break;
         }
 
-        for (int i = 0; i < grid.gridSquares.Count - 1; i++)
+        for (int i = 0; i < grid.gridSquares.Count; i++)
         {
             if ((currentY == grid.gridSquares[i].y && currentX == grid.gridSquares[i].x))
             {
