@@ -16,11 +16,12 @@ public class GridGeneration : MonoBehaviour
 
     public List<GridSquare> gridSquares = new List<GridSquare>();
 
+    //List of the types of tiles required
     public GameObject moveTile;
     public GameObject obsticalTile;
     public GameObject goalTile;
-    public GameObject player; 
 
+    public GameObject player; 
 
     public int numberOfXGrid;
     public int numberOfYGrid;
@@ -40,6 +41,7 @@ public class GridGeneration : MonoBehaviour
         
     }
 
+    //Sets type of tile ready for grid generation 
     void ChooseTileType()
     {
         tiles = new TileType[numberOfXGrid, numberOfYGrid];
@@ -55,6 +57,7 @@ public class GridGeneration : MonoBehaviour
 
     }
 
+    //Spawns in level
     void InitialiseTiles()
     {
         GridSquare grid;
@@ -64,21 +67,36 @@ public class GridGeneration : MonoBehaviour
             {
                 grid.x = i;
                 grid.y = j;
-                grid.type = TileType.moveable;
+                
+                //Calculates positions to instantiate tiles at
                 Vector3 gridPos = new Vector3(i, j, 0);
-                if(tiles[i,j] == TileType.moveable)
+                Vector3 centerVector = new Vector3(-(numberOfXGrid / 2), -(numberOfYGrid / 2), 0);
+                gridPos = gridPos + centerVector; 
+
+                //Instantiates the correct kind of tile and sets type to be checked by player
+                if (tiles[i, j] == TileType.moveable)
+                {
+                    grid.type = TileType.moveable;
                     grid.gridSquare = Instantiate(moveTile, gridPos, Quaternion.identity) as GameObject;
-                else if(tiles[i, j] == TileType.obstical)
+                }
+                else if (tiles[i, j] == TileType.obstical)
+                {
+                    grid.type = TileType.obstical;
                     grid.gridSquare = Instantiate(obsticalTile, gridPos, Quaternion.identity) as GameObject;
-                else 
+                }
+                else
+                {
+                    grid.type = TileType.goal;
                     grid.gridSquare = Instantiate(goalTile, gridPos, Quaternion.identity) as GameObject;
+                }
 
-
+                //Adds the grid square to a list of grid squares for movement
                 gridSquares.Add(grid);
             }
         }
     }
 
+    //Spawns in the player 
     void SpawnPlayer()
     {
         Instantiate(player, gridSquares[startingTile].gridSquare.transform.position, Quaternion.identity);

@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     int currentX;
     int currentY; 
 
+    //Gets the grid and sets up player ready for movement
     void Start()
     {
         grid = GameObject.FindGameObjectWithTag("GameController").GetComponent<GridGeneration>();
@@ -27,6 +28,7 @@ public class PlayerController : MonoBehaviour
         PlayerInput(); 
     }
 
+    //Takes input from the player (later will be replaced with the user generated code)
     void PlayerInput()
     {
         if(Input.GetKeyDown(KeyCode.W))
@@ -50,8 +52,11 @@ public class PlayerController : MonoBehaviour
 
     void PlayerMove(int direction)
     {
-        int switchCase = direction;
-        switch (switchCase)
+        int oldX = currentX;
+        int oldY = currentY; 
+
+        //Sets the x and y for the player to be moved to
+        switch (direction)
         {
             case 0:
                 if(currentY != yMax - 1)
@@ -72,11 +77,22 @@ public class PlayerController : MonoBehaviour
                 break;
         }
 
-        for (int i = 0; i < grid.gridSquares.Count; i++)
+        //Loops through the grid positions 
+        for (int i = 0; i < grid.gridSquares.Count ; i++)
         {
+            //Finds the correct tile at the right X and Y position and moves the player there
             if ((currentY == grid.gridSquares[i].y && currentX == grid.gridSquares[i].x))
             {
-                this.transform.position = grid.gridSquares[i].gridSquare.transform.position;
+                //Makes sure the tile can be moved into and if not resets the player position to prevent bugs.
+                if (grid.gridSquares[i].type != TileType.obstical)
+                {
+                    this.transform.position = grid.gridSquares[i].gridSquare.transform.position;
+                }
+                else
+                {
+                    currentX = oldX;
+                    currentY = oldY;
+                }
                 break;
             }
         }
