@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6060936604495510143}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,7 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a663c4f42a4c964c987ca32337fb304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridSquares: []
   gridObject: {fileID: 1290891189224371284, guid: ef7b29e9ddf3d42459ebebfc99ec8a49,
     type: 3}
-  numberOfXGrid: 0
-  numberOfYGrid: 0
+  numberOfXGrid: 5
+  numberOfYGrid: 5

@@ -13,17 +13,19 @@ public class GridGeneration : MonoBehaviour
         public int y; 
     }
 
-    private List<GridSquare> gridSquares = new List<GridSquare>();
+    public List<GridSquare> gridSquares = new List<GridSquare>();
     public GameObject gridObject;
+    public GameObject player; 
 
     public int numberOfXGrid;
     public int numberOfYGrid;
 
+    public int startingTile; 
 
     void Start()
     {
         InitialiseSquares();
-        GenerateGrid(); 
+        SpawnPlayer();
     }
     
     void Update()
@@ -34,25 +36,22 @@ public class GridGeneration : MonoBehaviour
     void InitialiseSquares()
     {
         GridSquare grid;
-        grid.gridSquare = gridObject;
         for (int i = 0; i < numberOfXGrid; i++)
         {
             for (int j = 0; j < numberOfYGrid; j++)
             {
                 grid.x = i;
                 grid.y = j;
+                Vector3 gridPos = new Vector3(i, j, 0);
+                grid.gridSquare = Instantiate(gridObject, gridPos, Quaternion.identity) as GameObject;
 
                 gridSquares.Add(grid);
             }
         }
     }
 
-    void GenerateGrid()
+    void SpawnPlayer()
     {
-        for (int i = 0; i < (numberOfXGrid * numberOfYGrid); i++)
-        {
-            Vector3 gridPos = new Vector3(gridSquares[i].x, gridSquares[i].y, 0);
-            Instantiate(gridSquares[i].gridSquare, gridPos, Quaternion.identity);
-        }
+        Instantiate(player, gridSquares[startingTile].gridSquare.transform.position, Quaternion.identity);
     }
 }
