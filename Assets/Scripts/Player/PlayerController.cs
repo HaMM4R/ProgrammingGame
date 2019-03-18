@@ -5,16 +5,20 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private GridGeneration grid;
-    int xStep;
-    int yStep; 
-    int currentTile; 
+    int xMax;
+    int yMax; 
+    int currentX;
+    int currentY; 
 
     void Start()
     {
         grid = GameObject.FindGameObjectWithTag("GameController").GetComponent<GridGeneration>();
-        xStep = grid.numberOfYGrid;
-        yStep = grid.numberOfXGrid; 
-        currentTile = grid.startingTile; 
+
+        xMax = grid.numberOfXGrid;
+        yMax = grid.numberOfYGrid; 
+
+        currentX = grid.gridSquares[grid.startingTile].x;
+        currentY = grid.gridSquares[grid.startingTile].y;
     }
     
     
@@ -46,33 +50,36 @@ public class PlayerController : MonoBehaviour
 
     void PlayerMove(int direction)
     {
-        int switchCase = direction; 
+        int switchCase = direction;
         switch (switchCase)
         {
             case 0:
-                currentTile += 1;
-                if ((currentTile > grid.gridSquares.Count - 1 || currentTile < 0) || currentTile == yStep)
-                    currentTile -= 1; 
-                this.transform.position = grid.gridSquares[currentTile].gridSquare.transform.position; 
+                if(currentY != yMax)
+                    currentY += 1; 
                 break;
             case 1:
-                currentTile -= 1;
-                if (currentTile > grid.gridSquares.Count - 1 || currentTile < 0)
-                    currentTile += 1;
-                this.transform.position = grid.gridSquares[currentTile].gridSquare.transform.position;
+                if (currentY != 0)
+                    currentY -= 1;
                 break;
             case 2:
-                currentTile = currentTile - xStep;
-                if (currentTile > grid.gridSquares.Count - 1 || currentTile < 0)
-                    currentTile = currentTile + xStep;
-                this.transform.position = grid.gridSquares[currentTile].gridSquare.transform.position;
+                if (currentX != 0)
+                    currentX -= 1;
                 break;
             case 3:
-                currentTile = currentTile + xStep;
-                if (currentTile > grid.gridSquares.Count - 1 || currentTile < 0)
-                    currentTile = currentTile - xStep;
-                this.transform.position = grid.gridSquares[currentTile].gridSquare.transform.position;
+
+                if (currentX != xMax)
+                    currentX += 1;
                 break;
-        }     
+        }
+
+        for (int i = 0; i < grid.gridSquares.Count - 1; i++)
+        {
+            if ((currentY == grid.gridSquares[i].y && currentX == grid.gridSquares[i].x))
+            {
+                this.transform.position = grid.gridSquares[i].gridSquare.transform.position;
+                break;
+            }
+        }
     }
+        
 }
