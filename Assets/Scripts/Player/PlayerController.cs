@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private GridGeneration grid;
+    private GridGeneration grid; 
+
     int xMax;
     int yMax; 
     int currentX;
     int currentY; 
 
     //Gets the grid and sets up player ready for movement
+
+
     void Start()
     {
         grid = GameObject.FindGameObjectWithTag("GameController").GetComponent<GridGeneration>();
@@ -34,20 +37,29 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.W))
         {
             PlayerMove(0);
+            PlayerRotate(0);
         }
         if(Input.GetKeyDown(KeyCode.S))
         {
             PlayerMove(1);
+            PlayerRotate(180);
         }
         if (Input.GetKeyDown(KeyCode.A))
         {
             PlayerMove(2);
+            PlayerRotate(90);
 
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
             PlayerMove(3);
+            PlayerRotate(270);
         }
+    }
+
+    void PlayerRotate(int direction)
+    {
+        this.transform.rotation = Quaternion.Euler(new Vector3(0, 0, direction));
     }
 
     void PlayerMove(int direction)
