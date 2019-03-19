@@ -9,11 +9,12 @@ public class PlayerController : MonoBehaviour
     int xMax;
     int yMax; 
     int currentX;
-    int currentY; 
+    int currentY;
+
+    int nextGridSquare;
+    public List<int> moveTrace = new List<int>(); 
 
     //Gets the grid and sets up player ready for movement
-
-
     void Start()
     {
         grid = GameObject.FindGameObjectWithTag("GameController").GetComponent<GridGeneration>();
@@ -23,12 +24,15 @@ public class PlayerController : MonoBehaviour
 
         currentX = grid.gridSquares[grid.startingTile].x;
         currentY = grid.gridSquares[grid.startingTile].y;
+
+        nextGridSquare = 0; 
     }
     
     
     void Update()
     {
-        PlayerInput(); 
+        PlayerInput();
+        SmoothMove(); 
     }
 
     //Takes input from the player (later will be replaced with the user generated code)
@@ -98,7 +102,9 @@ public class PlayerController : MonoBehaviour
                 //Makes sure the tile can be moved into and if not resets the player position to prevent bugs.
                 if (grid.gridSquares[i].type != TileType.obstical)
                 {
-                    this.transform.position = grid.gridSquares[i].gridSquare.transform.position;
+                    //nextGridSquare = i;
+                    moveTrace.Add(i);
+                   
                 }
                 else
                 {
@@ -109,5 +115,21 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-        
+
+    void SmoothMove()
+    {
+        if (moveTrace.Count != 0)
+        {
+            if (nextGridSquare < moveTrace.Count)
+            {
+                Vector3 target = grid.gridSquares[moveTrace[nextGridSquare]].gridSquare.transform.position;
+                this.transform.position = Vector3.MoveTowards(transform.position, target, Time.deltaTime * 2);
+
+                if (Vector3.Distance(transform.position, target) < 0.001f)
+                {
+                    nextGridSquare++;
+                }
+            }
+        }
+    } 
 }
