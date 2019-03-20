@@ -4,15 +4,29 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public float playerHealth; 
+
     void Start()
     {
         
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
-        
+        CheckHealth();
+        if (Input.GetKeyDown(KeyCode.P))
+            playerHealth -= 20; 
     }
+
+    void CheckHealth()
+    {
+        if (playerHealth <= 0)
+            Die(); 
+    }
+
+    void Die()
+    {
+        Destroy(gameObject);
+    }
+        
 }
