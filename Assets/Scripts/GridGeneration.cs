@@ -99,7 +99,8 @@ public class GridGeneration : MonoBehaviour
     //Spawns in the player 
     void SpawnPlayer()
     {
-        Instantiate(player, gridSquares[startingTile].gridSquare.transform.position, Quaternion.identity);
+        GameObject Player = Instantiate(player, gridSquares[startingTile].gridSquare.transform.position, Quaternion.identity) as GameObject;
+        gameObject.GetComponent<CodeInput>().GetPlayer(Player); 
     }
 }
 

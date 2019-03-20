@@ -31,16 +31,16 @@ public class PlayerController : MonoBehaviour
     
     void Update()
     {
-        PlayerInput();
         SmoothMove(); 
     }
 
     //Takes input from the player (later will be replaced with the user generated code)
-    void PlayerInput()
+    public void PlayerInput(int direction)
     {
-        if(Input.GetKeyDown(KeyCode.W))
+        PlayerMove(direction);
+        /*if (Input.GetKeyDown(KeyCode.W))
         {
-            PlayerMove(0);
+            PlayerMove(direction);
             PlayerRotate(0);
         }
         if(Input.GetKeyDown(KeyCode.S))
@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
         {
             PlayerMove(3);
             PlayerRotate(270);
-        }
+        }*/
     }
 
     void PlayerRotate(int direction)
