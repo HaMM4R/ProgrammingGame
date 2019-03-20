@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class CodeInput : MonoBehaviour
 {
-    GameObject player;
-
     PlayerShoot pShoot;
     PlayerController pController;
-
 
     string userCode; 
 
@@ -19,7 +16,6 @@ public class CodeInput : MonoBehaviour
     
     public void GetPlayer(GameObject p)
     {
-        player = p;
         pShoot = p.GetComponent<PlayerShoot>();
         pController = p.GetComponent<PlayerController>(); 
     }
@@ -30,9 +26,41 @@ public class CodeInput : MonoBehaviour
 
         if(GUI.Button(new Rect(10, Screen.height - 80, Screen.width / 4, 60), "Submit"))
         {
-            SubmitCode(userCode);
+            string[] code = SplitCode(userCode);
+
+            for (int i = 0; i < code.Length; i++)
+            {
+                SubmitCode(code[i]);
+            }
+            
             userCode = ""; 
         }
+    }
+
+    string[] SplitCode(string code)
+    {
+        List<string> returnCode = new List<string>();
+        string holder = "";
+
+        if (code.Contains("\n"))
+        {
+            foreach (char c in code)
+            {
+                if (c != '\n')//Check to see if of char is the same as the length of the string
+                {
+                    holder = holder + c;
+                }
+                else 
+                {
+                    returnCode.Add(holder);
+                    holder = "";
+                }
+            }
+        }
+        else
+            returnCode.Add(code);
+        
+        return returnCode.ToArray();
     }
 
     void SubmitCode(string code)
@@ -52,11 +80,11 @@ public class CodeInput : MonoBehaviour
         }
         if (code == "MoveRight")
         {
-            pController.PlayerInput(2);
+            pController.PlayerInput(3);
         }
         if (code == "MoveLeft")
         {
-            pController.PlayerInput(3);
+            pController.PlayerInput(2);
         }
     }
 }

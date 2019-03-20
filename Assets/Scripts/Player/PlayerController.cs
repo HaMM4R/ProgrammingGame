@@ -38,27 +38,6 @@ public class PlayerController : MonoBehaviour
     public void PlayerInput(int direction)
     {
         PlayerMove(direction);
-        /*if (Input.GetKeyDown(KeyCode.W))
-        {
-            PlayerMove(direction);
-            PlayerRotate(0);
-        }
-        if(Input.GetKeyDown(KeyCode.S))
-        {
-            PlayerMove(1);
-            PlayerRotate(180);
-        }
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            PlayerMove(2);
-            PlayerRotate(90);
-
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            PlayerMove(3);
-            PlayerRotate(270);
-        }*/
     }
 
     void PlayerRotate(int direction)
