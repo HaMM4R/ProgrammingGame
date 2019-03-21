@@ -27,11 +27,7 @@ public class CodeInput : MonoBehaviour
         if(GUI.Button(new Rect(10, Screen.height - 80, Screen.width / 4, 60), "Submit"))
         {
             string[] code = SplitCode(userCode);
-
-            for (int i = 0; i < code.Length; i++)
-            {
-                SubmitCode(code[i]);
-            }
+            SubmitCode(code);
             
             userCode = ""; 
         }
@@ -41,14 +37,19 @@ public class CodeInput : MonoBehaviour
     {
         List<string> returnCode = new List<string>();
         string holder = "";
+        int i = 0;
 
         if (code.Contains("\n"))
         {
             foreach (char c in code)
             {
+                i++; 
                 if (c != '\n')//Check to see if of char is the same as the length of the string
                 {
                     holder = holder + c;
+                    if(i == code.Length)
+                        returnCode.Add(holder);
+
                 }
                 else 
                 {
@@ -63,28 +64,31 @@ public class CodeInput : MonoBehaviour
         return returnCode.ToArray();
     }
 
-    void SubmitCode(string code)
+    void SubmitCode(string[] code)
     {
-        if (code == "Fire")
+        for(int i = 0; i < code.Length; i++)
         {
-            pShoot.Fire();
-        }
+            if (code[i] == "Fire")
+            {
+                pShoot.Fire();
+            }
 
-        if(code == "MoveUp")
-        {
-            pController.PlayerInput(0);
-        }
-        if (code == "MoveDown")
-        {
-            pController.PlayerInput(1);
-        }
-        if (code == "MoveRight")
-        {
-            pController.PlayerInput(3);
-        }
-        if (code == "MoveLeft")
-        {
-            pController.PlayerInput(2);
+            if(code[i] == "MoveUp")
+            {
+                pController.PlayerInput(0);
+            }
+            if (code[i] == "MoveDown")
+            {
+                pController.PlayerInput(1);
+            }
+            if (code[i] == "MoveRight")
+            {
+                pController.PlayerInput(3);
+            }
+            if (code[i] == "MoveLeft")
+            {
+                pController.PlayerInput(2);
+            }
         }
     }
 }
