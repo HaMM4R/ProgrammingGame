@@ -44,7 +44,7 @@ public class CodeInput : MonoBehaviour
             foreach (char c in code)
             {
                 i++; 
-                if (c != '\n')//Check to see if of char is the same as the length of the string
+                if (c != '\n')
                 {
                     holder = holder + c;
                     if(i == code.Length)
@@ -66,28 +66,54 @@ public class CodeInput : MonoBehaviour
 
     void SubmitCode(string[] code)
     {
+        string holder = "";
+        int numOfCalls = 0; 
+
         for(int i = 0; i < code.Length; i++)
         {
-            if (code[i] == "Fire")
+            if (code[i].Contains("Fire"))
             {
-                pShoot.Fire();
+                holder = code[i].Remove(0,5);
+                numOfCalls = int.Parse(holder); 
+
+                for(int j = 0; j < numOfCalls; j++)
+                    pShoot.Fire();
             }
 
-            if(code[i] == "MoveUp")
+            if (code[i].Contains("MoveUp"))
             {
-                pController.PlayerInput(0);
+                holder = code[i].Remove(0,7);
+                numOfCalls = int.Parse(holder); 
+
+                for(int j = 0; j < numOfCalls; j++)
+                    pController.PlayerInput(0);
             }
-            if (code[i] == "MoveDown")
+
+            if (code[i].Contains("MoveDown"))
             {
-                pController.PlayerInput(1);
+                holder = code[i].Remove(0,9);
+                numOfCalls = int.Parse(holder); 
+
+                for(int j = 0; j < numOfCalls; j++)
+                    pController.PlayerInput(1);
             }
-            if (code[i] == "MoveRight")
+
+            if (code[i].Contains("MoveRight"))
             {
-                pController.PlayerInput(3);
+                holder = code[i].Remove(0,10);
+                numOfCalls = int.Parse(holder); 
+
+                for(int j = 0; j < numOfCalls; j++)
+                    pController.PlayerInput(3);
             }
-            if (code[i] == "MoveLeft")
+
+            if (code[i].Contains("MoveLeft"))
             {
-                pController.PlayerInput(2);
+                holder = code[i].Remove(0,9);
+                numOfCalls = int.Parse(holder); 
+
+                for(int j = 0; j < numOfCalls; j++)
+                    pController.PlayerInput(2);
             }
         }
     }
