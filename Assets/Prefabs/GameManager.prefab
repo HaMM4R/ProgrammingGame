@@ -51,7 +51,11 @@ MonoBehaviour:
     type: 3}
   goalTile: {fileID: 8341513802211280461, guid: 43577a1d11fcc1846bd8eb5b4aa83861,
     type: 3}
+  destructableTile: {fileID: 6520708527290724201, guid: bfa0747995a9ce74fb4377d5ddf19efc,
+    type: 3}
   player: {fileID: 1869550150505289807, guid: e3dcb164f279f75429e731942273c750, type: 3}
+  ammoPickup: {fileID: 8474850875308429485, guid: 0ac5120d2d0bcf344aaeb8d278eb4dae,
+    type: 3}
   numberOfXGrid: 7
   numberOfYGrid: 7
   startingTile: 0
@@ -67,4 +71,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d39c5373502146f43b32c6c9ca8a4509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grid: {fileID: 6060936604495510143}

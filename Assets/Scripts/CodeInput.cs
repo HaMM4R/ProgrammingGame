@@ -64,6 +64,8 @@ public class CodeInput : MonoBehaviour
         return returnCode.ToArray();
     }
 
+    //SHOULD PROBABLY REMOVE WHITE SPACE FIRST AND THEN PERFORM OPERATIONS
+    //PLAY ABOUT WITH SOON 
     void SubmitCode(string[] code)
     {
         string holder = "";
@@ -73,8 +75,13 @@ public class CodeInput : MonoBehaviour
         {
             if (code[i].Contains("Fire"))
             {
-                holder = code[i].Remove(0,5);
-                numOfCalls = int.Parse(holder); 
+                if(code[i].Length > 4)
+                {
+                    holder = code[i].Remove(0,5);
+                    numOfCalls = int.Parse(holder); 
+                }
+                else
+                    numOfCalls = 1;
 
                 for(int j = 0; j < numOfCalls; j++)
                     pShoot.Fire();

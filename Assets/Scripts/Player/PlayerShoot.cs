@@ -7,9 +7,11 @@ public class PlayerShoot : MonoBehaviour
     public GameObject bullet;
     public GameObject fireLocation; 
 
+    int ammo; 
 
     void Start()
     {
+        ammo = 10; 
     }
     
     void Update()
@@ -19,6 +21,15 @@ public class PlayerShoot : MonoBehaviour
 
     public void Fire()
     {
-        Instantiate(bullet, fireLocation.transform.position, fireLocation.transform.rotation);
+        if(ammo > 0)
+        {
+            Instantiate(bullet, fireLocation.transform.position, fireLocation.transform.rotation);
+            ammo--; 
+        }
+    }
+    
+    void OnGUI()
+    {
+        GUI.Box(new Rect(Screen.width / 4 + 15, 10, 100,22), "Ammo: " + ammo.ToString());
     }
 }

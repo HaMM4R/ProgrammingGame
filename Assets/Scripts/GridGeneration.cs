@@ -20,8 +20,10 @@ public class GridGeneration : MonoBehaviour
     public GameObject moveTile;
     public GameObject obsticalTile;
     public GameObject goalTile;
+    public GameObject destructableTile;
 
     public GameObject player; 
+    public GameObject ammoPickup; 
 
     public int numberOfXGrid;
     public int numberOfYGrid;
@@ -34,6 +36,7 @@ public class GridGeneration : MonoBehaviour
         ChooseTileType(); 
         InitialiseTiles();
         SpawnPlayer();
+        SpawnAmmo(); 
     }
     
     void Update()
@@ -53,7 +56,7 @@ public class GridGeneration : MonoBehaviour
         tiles[3, 3] = TileType.obstical;
         tiles[3, 2] = TileType.obstical;
         tiles[3, 1] = TileType.obstical;
-        tiles[2, 2] = TileType.goal;
+        tiles[2, 2] = TileType.destructable;
 
     }
 
@@ -84,6 +87,12 @@ public class GridGeneration : MonoBehaviour
                     grid.type = TileType.obstical;
                     grid.gridSquare = Instantiate(obsticalTile, gridPos, Quaternion.identity) as GameObject;
                 }
+                else if(tiles[i, j] == TileType.destructable)
+                {
+                    grid.type = TileType.destructable;
+                    grid.gridSquare = Instantiate(destructableTile, gridPos, Quaternion.identity) as GameObject;
+                    grid.gridSquare.GetComponent<TileDestroy>().GetGameManager(this, i, j);
+                }
                 else
                 {
                     grid.type = TileType.goal;
@@ -96,11 +105,39 @@ public class GridGeneration : MonoBehaviour
         }
     }
 
+    public void DestroyTile(int xPos, int yPos)
+    {
+        GridSquare newSquare;
+        for (int i = 0; i < gridSquares.Count ; i++)
+        {
+            //Finds the correct tile at the right X and Y position and moves the player there
+            if ((yPos == gridSquares[i].y && xPos == gridSquares[i].x))
+            {
+                newSquare.x = xPos;
+                newSquare.y = yPos;
+
+                newSquare.type = TileType.moveable;
+                newSquare.gridSquare = Instantiate(moveTile, gridSquares[i].gridSquare.transform.position, Quaternion.identity) as GameObject;
+                
+                Destroy(gridSquares[i].gridSquare);
+                gridSquares.RemoveAt(i);
+
+                gridSquares.Insert(i, newSquare);
+                break;
+            }
+        }
+    }
+
     //Spawns in the player 
     void SpawnPlayer()
     {
         GameObject Player = Instantiate(player, gridSquares[startingTile].gridSquare.transform.position, Quaternion.identity) as GameObject;
         gameObject.GetComponent<CodeInput>().GetPlayer(Player); 
+    }
+
+    void SpawnAmmo()
+    {
+        Instantiate(ammoPickup, gridSquares[21].gridSquare.transform.position, Quaternion.identity);
     }
 }
 
@@ -108,5 +145,6 @@ public enum TileType
 {
     moveable, 
     obstical,
-    goal
+    goal,
+    destructable
 }

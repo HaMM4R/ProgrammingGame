@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour
             if ((currentY == grid.gridSquares[i].y && currentX == grid.gridSquares[i].x))
             {
                 //Makes sure the tile can be moved into and if not resets the player position to prevent bugs.
-                if (grid.gridSquares[i].type != TileType.obstical)
+                if (grid.gridSquares[i].type != TileType.obstical && grid.gridSquares[i].type != TileType.destructable)
                 {
                     //nextGridSquare = i;
                     moveTrace.Add(i);
