@@ -33,7 +33,8 @@ public class GridGeneration : MonoBehaviour
 
     void Start()
     {
-        ChooseTileType(); 
+        ChooseTileType();
+        SetLevelBoarders();
         InitialiseTiles();
         SpawnPlayer();
         SpawnAmmo(); 
@@ -43,21 +44,32 @@ public class GridGeneration : MonoBehaviour
     {
         
     }
-
+    
     //Sets type of tile ready for grid generation 
     void ChooseTileType()
     {
         tiles = new TileType[numberOfXGrid, numberOfYGrid];
-        tiles[1, 0] = TileType.obstical;
-        tiles[1, 1] = TileType.obstical;
-        tiles[1, 2] = TileType.obstical;
-        tiles[1, 3] = TileType.obstical;
-        tiles[2, 3] = TileType.obstical;
-        tiles[3, 3] = TileType.obstical;
-        tiles[3, 2] = TileType.obstical;
-        tiles[3, 1] = TileType.obstical;
-        tiles[2, 2] = TileType.destructable;
 
+        for(int i = 0; i < numberOfYGrid; i++)
+            tiles[i, 6] = TileType.obstical;
+
+        for (int i = 0; i < numberOfYGrid; i++)
+            tiles[i, 7] = TileType.goal;
+
+        tiles[4, 6] = TileType.destructable;
+
+    }
+
+    void SetLevelBoarders()
+    {
+        for(int i = 0; i < numberOfXGrid; i++)
+        {
+            for(int j = 0; j < numberOfYGrid; j++)
+            {
+                if((i == 0 || i == numberOfXGrid - 1) || (j == 0 || j == numberOfYGrid - 1))
+                    tiles[i,j] = TileType.obstical; 
+            }
+        }
     }
 
     //Spawns in level

@@ -9,6 +9,8 @@ public class PlayerShoot : MonoBehaviour
 
     int ammo; 
 
+    public int Ammo { get { return ammo; } set { ammo = value; }  }
+
     void Start()
     {
         ammo = 10; 
