@@ -1,9 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [Serializable]
+    public struct MoveTrace
+    {
+        public int movePos;
+        public float rotation;
+    }
     private GridGeneration grid;
 
     private PlayerShoot pShoot;
@@ -14,7 +21,7 @@ public class PlayerController : MonoBehaviour
     int currentY;
 
     int nextGridSquare;
-    public List<int> moveTrace = new List<int>(); 
+    public List<MoveTrace> moveTrace = new List<MoveTrace>(); 
 
     //Gets the grid and sets up player ready for movement
     void Start()
@@ -51,27 +58,41 @@ public class PlayerController : MonoBehaviour
     void PlayerMove(int direction)
     {
         int oldX = currentX;
-        int oldY = currentY; 
+        int oldY = currentY;
+        MoveTrace trace;
+
+        trace.rotation = 0; 
 
         //Sets the x and y for the player to be moved to
         switch (direction)
         {
             case 0:
-                if(currentY != yMax - 1)
-                    currentY += 1; 
+                if (currentY != yMax - 1)
+                {
+                    currentY += 1;
+                    trace.rotation = 0;
+                }
                 break;
             case 1:
                 if (currentY != 0)
+                {
                     currentY -= 1;
+                    trace.rotation = 180;
+                }
                 break;
             case 2:
                 if (currentX != 0)
+                {
                     currentX -= 1;
+                    trace.rotation = 270;
+                }
                 break;
             case 3:
-
                 if (currentX != xMax - 1)
+                {
                     currentX += 1;
+                    trace.rotation = 90;
+                }
                 break;
         }
 
@@ -85,7 +106,8 @@ public class PlayerController : MonoBehaviour
                 if (grid.gridSquares[i].type != TileType.obstical && grid.gridSquares[i].type != TileType.destructable)
                 {
                     //nextGridSquare = i;
-                    moveTrace.Add(i);
+                    trace.movePos = i;
+                    moveTrace.Add(trace);
                    
                 }
                 else
@@ -104,10 +126,13 @@ public class PlayerController : MonoBehaviour
         {
             if (nextGridSquare < moveTrace.Count)
             {
-                Vector3 target = grid.gridSquares[moveTrace[nextGridSquare]].gridSquare.transform.position;
-                this.transform.position = Vector3.MoveTowards(transform.position, target, Time.deltaTime * 2);
+                Transform target = grid.gridSquares[moveTrace[nextGridSquare].movePos].gridSquare.transform;
+                target.rotation = target.rotation + Quaternion.Euler(0, moveTrace[nextGridSquare].rotation, 0);
+                this.transform.position = Vector3.MoveTowards(transform.position, target.position, Time.deltaTime * 2);
+                this.transform.rotation = Quaternion.RotateTowards(transform.rotation, , Time.deltaTime * 2);
 
-                for(int i = 0; i < grid.ammoPickups.Count; i++)
+
+                for (int i = 0; i < grid.ammoPickups.Count; i++)
                 {
                     if (Vector3.Distance(transform.position, grid.ammoPickups[i].transform.position) < 0.001f)
                     {
@@ -119,7 +144,7 @@ public class PlayerController : MonoBehaviour
                     }
                 }
 
-                if (Vector3.Distance(transform.position, target) < 0.001f)
+                if (Vector3.Distance(transform.position, target.position) < 0.001f)
                 {
                     nextGridSquare++;
                 }
