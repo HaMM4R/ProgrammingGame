@@ -13,7 +13,7 @@ public class PlayerShoot : MonoBehaviour
 
     void Start()
     {
-        ammo = 10; 
+        ammo = 0; 
     }
     
     void Update()

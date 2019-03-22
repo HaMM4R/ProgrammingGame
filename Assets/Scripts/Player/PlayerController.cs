@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private GridGeneration grid; 
+    private GridGeneration grid;
+
+    private PlayerShoot pShoot;
 
     int xMax;
     int yMax; 
@@ -18,6 +20,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         grid = GameObject.FindGameObjectWithTag("GameController").GetComponent<GridGeneration>();
+        pShoot = GetComponent<PlayerShoot>(); 
 
         xMax = grid.numberOfXGrid;
         yMax = grid.numberOfYGrid; 
@@ -31,7 +34,7 @@ public class PlayerController : MonoBehaviour
     
     void Update()
     {
-        SmoothMove(); 
+        SmoothMove();
     }
 
     //Takes input from the player (later will be replaced with the user generated code)
@@ -103,6 +106,18 @@ public class PlayerController : MonoBehaviour
             {
                 Vector3 target = grid.gridSquares[moveTrace[nextGridSquare]].gridSquare.transform.position;
                 this.transform.position = Vector3.MoveTowards(transform.position, target, Time.deltaTime * 2);
+
+                for(int i = 0; i < grid.ammoPickups.Count; i++)
+                {
+                    if (Vector3.Distance(transform.position, grid.ammoPickups[i].transform.position) < 0.001f)
+                    {
+                        var Ammo = grid.ammoPickups[i].GetComponent<AmmoPickup>();
+
+                        pShoot.Ammo += Ammo.AddAmmo();
+                        Ammo.DestroyAmmo();
+                        grid.ammoPickups.RemoveAt(i);
+                    }
+                }
 
                 if (Vector3.Distance(transform.position, target) < 0.001f)
                 {

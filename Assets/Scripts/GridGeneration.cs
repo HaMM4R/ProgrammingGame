@@ -15,6 +15,7 @@ public class GridGeneration : MonoBehaviour
     }
 
     public List<GridSquare> gridSquares = new List<GridSquare>();
+    public List<GameObject> ammoPickups = new List<GameObject>();
 
     //List of the types of tiles required
     public GameObject moveTile;
@@ -30,6 +31,7 @@ public class GridGeneration : MonoBehaviour
 
     public int startingTile;
     private TileType[,] tiles; 
+
 
     void Start()
     {
@@ -57,6 +59,14 @@ public class GridGeneration : MonoBehaviour
             tiles[i, 7] = TileType.goal;
 
         tiles[4, 6] = TileType.destructable;
+        tiles[2, 1] = TileType.obstical;
+        tiles[2, 2] = TileType.obstical;
+        tiles[2, 3] = TileType.obstical;
+        tiles[2, 4] = TileType.obstical;
+        tiles[3, 4] = TileType.obstical;
+        tiles[5, 4] = TileType.obstical;
+        tiles[6, 4] = TileType.obstical;
+        tiles[7, 4] = TileType.obstical;
 
     }
 
@@ -149,7 +159,8 @@ public class GridGeneration : MonoBehaviour
 
     void SpawnAmmo()
     {
-        Instantiate(ammoPickup, gridSquares[21].gridSquare.transform.position, Quaternion.identity);
+        GameObject pickup = Instantiate(ammoPickup, gridSquares[47].gridSquare.transform.position, Quaternion.identity) as GameObject;
+        ammoPickups.Add(pickup);
     }
 }
 
