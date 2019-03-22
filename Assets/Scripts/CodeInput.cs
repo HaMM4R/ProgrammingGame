@@ -7,13 +7,23 @@ public class CodeInput : MonoBehaviour
     PlayerShoot pShoot;
     PlayerController pController;
 
-    string userCode; 
+    string userCode;
+
+    bool complete;
+    bool submitted;
+
+    int commandCounter;
 
     void Start()
     {
-        
+        commandCounter = 0; 
     }
-    
+
+    void Update()
+    {
+        BufferCommands(); 
+    }
+
     public void GetPlayer(GameObject p)
     {
         pShoot = p.GetComponent<PlayerShoot>();
@@ -26,12 +36,24 @@ public class CodeInput : MonoBehaviour
 
         if(GUI.Button(new Rect(10, Screen.height - 80, Screen.width / 4, 60), "Submit"))
         {
-            string[] code = SplitCode(userCode);
-            SubmitCode(code);
-            
-            userCode = ""; 
+            submitted = true;
         }
     }
+
+    void BufferCommands()
+    {
+        if(submitted)
+        {
+            string[] code = SplitCode(userCode);
+            SubmitCode(code);
+
+            userCode = "";
+            submitted = false; 
+        }
+    }
+
+    public bool instructionComplete { get { return complete; } set{ complete = value; } } 
+    
 
     string[] SplitCode(string code)
     {
@@ -121,6 +143,11 @@ public class CodeInput : MonoBehaviour
 
                 for(int j = 0; j < numOfCalls; j++)
                     pController.PlayerInput(2);
+            }
+
+            if(code[i].Contains("Rotate"))
+            {
+                pController.PlayerInput(4);
             }
         }
     }
