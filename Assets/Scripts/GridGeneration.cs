@@ -162,7 +162,6 @@ public class GridGeneration : MonoBehaviour
 
     void IntroCinematic()
     {
-        introTrace.Add(startingTile);
         for (int i = 0; i < gridSquares.Count; i++)
         {
             //Finds the correct tile at the right X and Y position and moves the player there
@@ -173,6 +172,7 @@ public class GridGeneration : MonoBehaviour
         }
 
         introTrace.Add(47);
+        introTrace.Add(startingTile);
         Debug.Log(introTrace[0]);
         var c = player.gameObject.GetComponent<CameraManager>();
         c.StartCinematic(this); 

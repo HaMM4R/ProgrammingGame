@@ -46,16 +46,10 @@ public class PlayerController : MonoBehaviour
         nextGridSquare = 0;
         curRot = 0; 
     }
-
-
-    void IntroCinematic()
-    {
-
-    }
-    
     
     void Update()
     {
+        hasControl = camManager.cinematicOver; 
         if (hasControl)
         {
             SmoothMove();
