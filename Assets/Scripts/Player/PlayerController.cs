@@ -9,11 +9,15 @@ public class PlayerController : MonoBehaviour
     private CodeInput codeInput; 
 
     private PlayerShoot pShoot;
+    public CameraManager camManager; 
 
     int xMax;
     int yMax; 
     int currentX;
     int currentY;
+
+    bool hasControl; 
+    public bool HasControl { get { return hasControl; } set { hasControl = value; } }
 
     int nextGridSquare;
     public List<int> moveTrace = new List<int>();
@@ -25,10 +29,12 @@ public class PlayerController : MonoBehaviour
     //Gets the grid and sets up player ready for movement
     void Start()
     {
+        hasControl = false; 
         var Manager = GameObject.FindGameObjectWithTag("GameController");
         grid = Manager.GetComponent<GridGeneration>();
         codeInput = Manager.GetComponent<CodeInput>();
 
+        camManager = GetComponent<CameraManager>();
         pShoot = GetComponent<PlayerShoot>(); 
 
         xMax = grid.numberOfXGrid;
@@ -40,12 +46,21 @@ public class PlayerController : MonoBehaviour
         nextGridSquare = 0;
         curRot = 0; 
     }
+
+
+    void IntroCinematic()
+    {
+
+    }
     
     
     void Update()
     {
-        SmoothMove();
-        SmoothRotate(); 
+        if (hasControl)
+        {
+            SmoothMove();
+            SmoothRotate();
+        }
     }
 
     //Takes input from the player (later will be replaced with the user generated code)

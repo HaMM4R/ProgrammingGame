@@ -16,6 +16,8 @@ public class GridGeneration : MonoBehaviour
 
     public List<GridSquare> gridSquares = new List<GridSquare>();
     public List<GameObject> ammoPickups = new List<GameObject>();
+    
+    public List<int> introTrace = new List<int>();
 
     //List of the types of tiles required
     public GameObject moveTile;
@@ -39,7 +41,8 @@ public class GridGeneration : MonoBehaviour
         SetLevelBoarders();
         InitialiseTiles();
         SpawnPlayer();
-        SpawnAmmo(); 
+        SpawnAmmo();
+        IntroCinematic(); 
     }
     
     void Update()
@@ -155,6 +158,24 @@ public class GridGeneration : MonoBehaviour
     {
         GameObject Player = Instantiate(player, gridSquares[startingTile].gridSquare.transform.position, Quaternion.identity) as GameObject;
         gameObject.GetComponent<CodeInput>().GetPlayer(Player); 
+    }
+
+    void IntroCinematic()
+    {
+        introTrace.Add(startingTile);
+        for (int i = 0; i < gridSquares.Count; i++)
+        {
+            //Finds the correct tile at the right X and Y position and moves the player there
+            if (gridSquares[i].type == TileType.destructable)
+            {
+                introTrace.Add(i);
+            }
+        }
+
+        introTrace.Add(47);
+        Debug.Log(introTrace[0]);
+        var c = player.gameObject.GetComponent<CameraManager>();
+        c.StartCinematic(this); 
     }
 
     void SpawnAmmo()

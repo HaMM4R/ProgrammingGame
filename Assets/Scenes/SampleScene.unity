@@ -124,6 +124,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 5501642059208699251, guid: 5301c3bb4d8ba5b4eab002226825e8b0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8111086316647956119, guid: 5301c3bb4d8ba5b4eab002226825e8b0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -194,6 +199,12 @@ PrefabInstance:
       propertyPath: startingTile
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 6060936604495510143, guid: 5301c3bb4d8ba5b4eab002226825e8b0,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1869550150505289807, guid: e3dcb164f279f75429e731942273c750,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5301c3bb4d8ba5b4eab002226825e8b0, type: 3}
 --- !u!1 &519420028

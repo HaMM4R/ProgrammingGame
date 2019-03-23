@@ -40,10 +40,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7862410444118939152}
   - component: {fileID: 8552262837886575623}
-  - component: {fileID: 8481944748865974239}
-  - component: {fileID: 4818932507534711769}
-  - component: {fileID: 7524108100247523444}
-  - component: {fileID: 1439383056247612621}
+  - component: {fileID: 7618425948891936338}
+  - component: {fileID: 1181161521084484360}
+  - component: {fileID: 5465194591720912486}
+  - component: {fileID: 4856870210158990866}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -114,7 +114,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8481944748865974239
+--- !u!114 &7618425948891936338
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -126,8 +126,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcb591a933277954db59b9ac33fea63a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camManager: {fileID: 0}
   moveTrace: 
---- !u!114 &4818932507534711769
+  rotateTrace: 
+--- !u!114 &1181161521084484360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869550150505289807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058321d4a376ece42aa50a80e69711ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHealth: 0
+--- !u!114 &5465194591720912486
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -141,20 +156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 953024546712593453, guid: 0adf2eb90c52afa4e90f45b8429d9dfd, type: 3}
   fireLocation: {fileID: 700251706197994514}
---- !u!114 &7524108100247523444
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1869550150505289807}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 058321d4a376ece42aa50a80e69711ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerHealth: 100
---- !u!114 &1439383056247612621
+--- !u!114 &4856870210158990866
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -166,3 +168,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f38a1da45d657c748b10b4a4f3f142a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cinematicOver: 0

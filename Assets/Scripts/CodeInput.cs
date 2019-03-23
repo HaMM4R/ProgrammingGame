@@ -5,7 +5,7 @@ using UnityEngine;
 public class CodeInput : MonoBehaviour
 {
     PlayerShoot pShoot;
-    PlayerController pController;
+    PlayerController pController; 
 
     string userCode;
 
@@ -32,11 +32,17 @@ public class CodeInput : MonoBehaviour
 
     private void OnGUI()
     {
-        userCode = GUI.TextArea(new Rect(10, 10, Screen.width / 4, Screen.height - 100), userCode);
-
-        if(GUI.Button(new Rect(10, Screen.height - 80, Screen.width / 4, 60), "Submit"))
+        if (pController != null)
         {
-            submitted = true;
+            if (pController.HasControl)
+            {
+                userCode = GUI.TextArea(new Rect(10, 10, Screen.width / 4, Screen.height - 100), userCode);
+
+                if (GUI.Button(new Rect(10, Screen.height - 80, Screen.width / 4, 60), "Submit"))
+                {
+                    submitted = true;
+                }
+            }
         }
     }
 

@@ -8,7 +8,7 @@ public class PlayerHealth : MonoBehaviour
 
     void Start()
     {
-        
+        playerHealth = 100;
     }
     
     void Update()
