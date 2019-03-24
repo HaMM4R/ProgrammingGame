@@ -26,6 +26,7 @@ public class GridGeneration : MonoBehaviour
     public GameObject obsticalTile;
     public GameObject goalTile;
     public GameObject destructableTile;
+    public GameObject edgePiece;
 
     public GameObject player; 
     public GameObject ammoPickup; 
@@ -82,8 +83,18 @@ public class GridGeneration : MonoBehaviour
         {
             for(int j = 0; j < numberOfYGrid; j++)
             {
-                if((i == 0 || i == numberOfXGrid - 1) || (j == 0 || j == numberOfYGrid - 1))
-                    tiles[i,j] = TileType.obstical; 
+                if ((i == 0 || i == numberOfXGrid - 1) || (j == 0 || j == numberOfYGrid - 1))
+                {
+                    if(i < numberOfXGrid - 1 && j == 0)
+                        tiles[i, j] = TileType.bottomBoundary;
+                    else if(i < numberOfXGrid && j == numberOfYGrid - 1)
+                        tiles[i, j] = TileType.topBoundary;
+                    else if (j < numberOfYGrid - 1 && i == 0)
+                        tiles[i, j] = TileType.leftBoundary;
+                    else if (j < numberOfYGrid && i == numberOfXGrid - 1)
+                        tiles[i, j] = TileType.rightBoundary;
+
+                }
             }
         }
     }
@@ -114,6 +125,26 @@ public class GridGeneration : MonoBehaviour
                 {
                     grid.type = TileType.obstical;
                     grid.gridSquare = Instantiate(obsticalTile, gridPos, Quaternion.identity) as GameObject;
+                }
+                else if (tiles[i, j] == TileType.leftBoundary)
+                {
+                    grid.type = TileType.leftBoundary;
+                    grid.gridSquare = Instantiate(edgePiece, gridPos, Quaternion.Euler(0,0, 90)) as GameObject;
+                }
+                else if (tiles[i, j] == TileType.rightBoundary)
+                {
+                    grid.type = TileType.rightBoundary;
+                    grid.gridSquare = Instantiate(edgePiece, gridPos, Quaternion.Euler(0, 0, -90)) as GameObject;
+                }
+                else if (tiles[i, j] == TileType.topBoundary)
+                {
+                    grid.type = TileType.topBoundary;
+                    grid.gridSquare = Instantiate(edgePiece, gridPos, Quaternion.identity) as GameObject;
+                }
+                else if (tiles[i, j] == TileType.bottomBoundary)
+                {
+                    grid.type = TileType.bottomBoundary;
+                    grid.gridSquare = Instantiate(edgePiece, gridPos, Quaternion.Euler(0, 0, -180)) as GameObject;
                 }
                 else if(tiles[i, j] == TileType.destructable)
                 {
@@ -192,6 +223,10 @@ public enum TileType
 {
     moveable, 
     obstical,
+    leftBoundary,
+    rightBoundary,
+    topBoundary,
+    bottomBoundary,
     goal,
     destructable
 }

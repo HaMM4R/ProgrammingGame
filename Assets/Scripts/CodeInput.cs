@@ -81,6 +81,7 @@ public class CodeInput : MonoBehaviour
                 }
                 else 
                 {
+                    Debug.Log("TESTING ");
                     returnCode.Add(holder);
                     holder = "";
                 }
@@ -117,8 +118,13 @@ public class CodeInput : MonoBehaviour
 
             if (code[i].Contains("MoveUp"))
             {
-                holder = code[i].Remove(0,7);
-                numOfCalls = int.Parse(holder); 
+                if (code[i].Length > 6)
+                {
+                    holder = code[i].Remove(0, 7);
+                    numOfCalls = int.Parse(holder);
+                }
+                else
+                    numOfCalls = 1; 
 
                 for(int j = 0; j < numOfCalls; j++)
                     pController.PlayerInput(0);
@@ -126,8 +132,13 @@ public class CodeInput : MonoBehaviour
 
             if (code[i].Contains("MoveDown"))
             {
-                holder = code[i].Remove(0,9);
-                numOfCalls = int.Parse(holder); 
+                if (code[i].Length > 8)
+                {
+                    holder = code[i].Remove(0, 9);
+                    numOfCalls = int.Parse(holder);
+                }
+                else
+                    numOfCalls = 1; 
 
                 for(int j = 0; j < numOfCalls; j++)
                     pController.PlayerInput(1);
@@ -135,8 +146,13 @@ public class CodeInput : MonoBehaviour
 
             if (code[i].Contains("MoveRight"))
             {
-                holder = code[i].Remove(0,10);
-                numOfCalls = int.Parse(holder); 
+                if (code[i].Length > 9)
+                {
+                    holder = code[i].Remove(0, 10);
+                    numOfCalls = int.Parse(holder);
+                }
+                else
+                    numOfCalls = 1;
 
                 for(int j = 0; j < numOfCalls; j++)
                     pController.PlayerInput(3);
@@ -144,8 +160,13 @@ public class CodeInput : MonoBehaviour
 
             if (code[i].Contains("MoveLeft"))
             {
-                holder = code[i].Remove(0,9);
-                numOfCalls = int.Parse(holder); 
+                if (code[i].Length > 8)
+                {
+                    holder = code[i].Remove(0, 9);
+                    numOfCalls = int.Parse(holder);
+                }
+                else;
+                    numOfCalls = 1;
 
                 for(int j = 0; j < numOfCalls; j++)
                     pController.PlayerInput(2);
