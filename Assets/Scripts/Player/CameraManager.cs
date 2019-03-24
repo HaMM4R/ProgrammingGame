@@ -34,7 +34,10 @@ public class CameraManager : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        if (cam != null)
+        if(g == null)
+            g = GameObject.FindGameObjectWithTag("GameController").gameObject.GetComponent<GridGeneration>();
+
+        if (cam != null && g != null)
         {
             FollowPlayer();
             InstructionCinematic();
@@ -47,10 +50,9 @@ public class CameraManager : MonoBehaviour
             cam.transform.position = new Vector3(transform.position.x, transform.position.y, cam.transform.position.z);
     }
 
-    public void StartCinematic(GridGeneration grid)
+    public void StartCinematic()
     {
         cinematicOver = false;
-        g = grid;
     }
 
     int i = 0;

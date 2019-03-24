@@ -175,7 +175,7 @@ public class GridGeneration : MonoBehaviour
         introTrace.Add(startingTile);
         Debug.Log(introTrace[0]);
         var c = player.gameObject.GetComponent<CameraManager>();
-        c.StartCinematic(this); 
+        c.StartCinematic(); 
     }
 
     void SpawnAmmo()
