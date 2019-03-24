@@ -72,7 +72,6 @@ public class PlayerController : MonoBehaviour
             curRot += 90;
         else
             curRot = degrees;
-        
         stillRotateTarget = Quaternion.Euler(0,0, curRot);
     }
 
@@ -85,6 +84,8 @@ public class PlayerController : MonoBehaviour
     {
         int oldX = currentX;
         int oldY = currentY;
+
+        int rotation = 0;
         
         //Sets the x and y for the player to be moved to
         switch (direction)
@@ -93,28 +94,28 @@ public class PlayerController : MonoBehaviour
                 if (currentY != yMax - 1)
                 {
                     currentY += 1;
-                    rotateTrace.Add(0); 
+                    rotation = 0; 
                 }
                 break;
             case 1:
                 if (currentY != 0)
                 {
                     currentY -= 1;
-                    rotateTrace.Add(180);
+                    rotation = 180; 
                 }
                 break;
             case 2:
                 if (currentX != 0)
                 {
                     currentX -= 1;
-                    rotateTrace.Add(90);
+                    rotation = 90;
                 }
                 break;
             case 3:
                 if (currentX != xMax - 1)
                 {
                     currentX += 1;
-                    rotateTrace.Add(270);
+                    rotation = 270;
                 }
                 break; 
         }
@@ -130,7 +131,7 @@ public class PlayerController : MonoBehaviour
                 {
                     //nextGridSquare = i;
                     moveTrace.Add(i);
-                   
+                    rotateTrace.Add(rotation);
                 }
                 else
                 {

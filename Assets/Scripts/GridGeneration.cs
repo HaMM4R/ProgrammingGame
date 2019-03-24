@@ -16,6 +16,8 @@ public class GridGeneration : MonoBehaviour
 
     public List<GridSquare> gridSquares = new List<GridSquare>();
     public List<GameObject> ammoPickups = new List<GameObject>();
+
+    public bool skipIntro; 
     
     public List<int> introTrace = new List<int>();
 
@@ -42,6 +44,7 @@ public class GridGeneration : MonoBehaviour
         InitialiseTiles();
         SpawnPlayer();
         SpawnAmmo();
+        if(!skipIntro)
         IntroCinematic(); 
     }
     
