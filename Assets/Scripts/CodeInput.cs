@@ -5,7 +5,9 @@ using UnityEngine;
 public class CodeInput : MonoBehaviour
 {
     PlayerShoot pShoot;
-    PlayerController pController; 
+    PlayerController pController;
+
+    List<string> userCommands = new List<string>(); 
 
     string userCode;
 
@@ -16,6 +18,13 @@ public class CodeInput : MonoBehaviour
 
     void Start()
     {
+        userCommands.Add("MOVEUP");
+        userCommands.Add("MOVEDOWN");
+        userCommands.Add("MOVELEFT");
+        userCommands.Add("MOVERIGHT");
+        userCommands.Add("ROTATE");
+        userCommands.Add("FIRE");
+
         commandCounter = 0; 
     }
 
@@ -51,6 +60,13 @@ public class CodeInput : MonoBehaviour
         if(submitted)
         {
             string[] code = SplitCode(userCode);
+
+            for (int i = 0; i < code.Length; i++)
+            {
+                Debug.Log(code[i]);
+                code[i] = code[i].ToUpper();
+            }
+
             SubmitCode(code);
 
             userCode = "";
@@ -58,7 +74,7 @@ public class CodeInput : MonoBehaviour
         }
     }
 
-    public bool instructionComplete { get { return complete; } set{ complete = value; } } 
+    public bool instructionComplete { get { return complete; } set { complete = value; } } 
     
 
     string[] SplitCode(string code)
@@ -67,12 +83,12 @@ public class CodeInput : MonoBehaviour
         string holder = "";
         int i = 0;
 
-        if (code.Contains("\n"))
+        if (code.Contains("\n") || code.Contains(" "))
         {
             foreach (char c in code)
             {
                 i++; 
-                if (c != '\n')
+                if (c != '\n' && c != ' ')
                 {
                     holder = holder + c;
                     if(i == code.Length)
@@ -81,8 +97,8 @@ public class CodeInput : MonoBehaviour
                 }
                 else 
                 {
-                    Debug.Log("TESTING ");
-                    returnCode.Add(holder);
+                    if(holder != string.Empty)
+                        returnCode.Add(holder);
                     holder = "";
                 }
             }
@@ -93,88 +109,53 @@ public class CodeInput : MonoBehaviour
         return returnCode.ToArray();
     }
 
-    //SHOULD PROBABLY REMOVE WHITE SPACE FIRST AND THEN PERFORM OPERATIONS
-    //PLAY ABOUT WITH SOON 
     void SubmitCode(string[] code)
     {
-        string holder = "";
-        int numOfCalls = 0; 
-
-        for(int i = 0; i < code.Length; i++)
+        int numOfCalls = 1;
+        for (int i = 0; i < code.Length; i++)
         {
-            if (code[i].Contains("Fire"))
+            if (i + 1 < code.Length)
             {
-                if(code[i].Length > 4)
+                Debug.Log("TESTNG");
+                if (!userCommands.Contains(code[i + 1]))
                 {
-                    holder = code[i].Remove(0,5);
-                    numOfCalls = int.Parse(holder); 
+                    numOfCalls = int.Parse(code[i + 1]);
                 }
-                else
-                    numOfCalls = 1;
-
-                for(int j = 0; j < numOfCalls; j++)
-                    pShoot.Fire();
             }
 
-            if (code[i].Contains("MoveUp"))
+            if (code[i] == userCommands[0])
             {
-                if (code[i].Length > 6)
-                {
-                    holder = code[i].Remove(0, 7);
-                    numOfCalls = int.Parse(holder);
-                }
-                else
-                    numOfCalls = 1; 
-
                 for(int j = 0; j < numOfCalls; j++)
                     pController.PlayerInput(0);
             }
-
-            if (code[i].Contains("MoveDown"))
+            else if (code[i] == userCommands[1])
             {
-                if (code[i].Length > 8)
-                {
-                    holder = code[i].Remove(0, 9);
-                    numOfCalls = int.Parse(holder);
-                }
-                else
-                    numOfCalls = 1; 
-
-                for(int j = 0; j < numOfCalls; j++)
+                for (int j = 0; j < numOfCalls; j++)
                     pController.PlayerInput(1);
             }
-
-            if (code[i].Contains("MoveRight"))
+            else if (code[i] == userCommands[2])
             {
-                if (code[i].Length > 9)
-                {
-                    holder = code[i].Remove(0, 10);
-                    numOfCalls = int.Parse(holder);
-                }
-                else
-                    numOfCalls = 1;
-
-                for(int j = 0; j < numOfCalls; j++)
-                    pController.PlayerInput(3);
-            }
-
-            if (code[i].Contains("MoveLeft"))
-            {
-                if (code[i].Length > 8)
-                {
-                    holder = code[i].Remove(0, 9);
-                    numOfCalls = int.Parse(holder);
-                }
-                else;
-                    numOfCalls = 1;
-
-                for(int j = 0; j < numOfCalls; j++)
+                for (int j = 0; j < numOfCalls; j++)
                     pController.PlayerInput(2);
             }
-
-            if(code[i].Contains("Rotate"))
+            else if (code[i] == userCommands[3])
             {
-                pController.PlayerInput(4);
+                for (int j = 0; j < numOfCalls; j++)
+                    pController.PlayerInput(3);
+            }
+            else if (code[i] == userCommands[4])
+            {
+                for (int j = 0; j < numOfCalls; j++)
+                    pController.PlayerInput(4);
+            }
+            else if (code[i] == userCommands[0])
+            {
+                for (int j = 0; j < numOfCalls; j++)
+                    pShoot.Fire();
+            }
+            else
+            {
+                Debug.Log("INVALID COMMAND");
             }
         }
     }
