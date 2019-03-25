@@ -46,6 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridSquares: []
   ammoPickups: []
+  skipIntro: 0
+  introTrace: 
   moveTile: {fileID: 1290891189224371284, guid: ef7b29e9ddf3d42459ebebfc99ec8a49,
     type: 3}
   obsticalTile: {fileID: 1663245637680371909, guid: f2fa73d861155644ea3ccc47ee59ee92,
@@ -54,12 +56,14 @@ MonoBehaviour:
     type: 3}
   destructableTile: {fileID: 6520708527290724201, guid: bfa0747995a9ce74fb4377d5ddf19efc,
     type: 3}
-  player: {fileID: 8502982483133312965, guid: 2caa7f4476f9d0a47941d3fbb8e7e39c, type: 3}
+  edgePiece: {fileID: 8138326915514664700, guid: 31667a3498a235e41b1a25545da7d392,
+    type: 3}
+  player: {fileID: 1869550150505289807, guid: e3dcb164f279f75429e731942273c750, type: 3}
   ammoPickup: {fileID: 8474850875308429485, guid: 0ac5120d2d0bcf344aaeb8d278eb4dae,
     type: 3}
-  numberOfXGrid: 7
-  numberOfYGrid: 7
-  startingTile: 0
+  numberOfXGrid: 9
+  numberOfYGrid: 9
+  startingTile: 10
 --- !u!114 &937351272
 MonoBehaviour:
   m_ObjectHideFlags: 0
