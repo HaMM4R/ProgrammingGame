@@ -27,6 +27,7 @@ public class GridGeneration : MonoBehaviour
     public GameObject goalTile;
     public GameObject destructableTile;
     public GameObject edgePiece;
+    public GameObject cornerPiece;
 
     public GameObject player; 
     public GameObject ammoPickup; 
@@ -94,6 +95,15 @@ public class GridGeneration : MonoBehaviour
                     else if (j < numberOfYGrid && i == numberOfXGrid - 1)
                         tiles[i, j] = TileType.rightBoundary;
 
+                    if (i == 0 && j == 0)
+                        tiles[i, j] = TileType.bottomLeftCorner;
+                    if (i == 0 && j == numberOfYGrid - 1)
+                        tiles[i, j] = TileType.topLeftCorner;
+                    if (i == numberOfXGrid - 1 && j == 0)
+                        tiles[i, j] = TileType.bottomRightCorner;
+                    if (i == numberOfXGrid - 1 && j == numberOfYGrid - 1)
+                        tiles[i, j] = TileType.topRightCorner;
+                    
                 }
             }
         }
@@ -151,6 +161,26 @@ public class GridGeneration : MonoBehaviour
                     grid.type = TileType.destructable;
                     grid.gridSquare = Instantiate(destructableTile, gridPos, Quaternion.identity) as GameObject;
                     grid.gridSquare.GetComponent<TileDestroy>().GetGameManager(this, i, j);
+                }
+                else if (tiles[i, j] == TileType.bottomLeftCorner)
+                {
+                    grid.type = TileType.destructable;
+                    grid.gridSquare = Instantiate(cornerPiece, gridPos, Quaternion.Euler(0, 0, 90)) as GameObject;
+                }
+                else if (tiles[i, j] == TileType.bottomRightCorner)
+                {
+                    grid.type = TileType.destructable;
+                    grid.gridSquare = Instantiate(cornerPiece, gridPos, Quaternion.Euler(0, 0, 180)) as GameObject;
+                }
+                else if (tiles[i, j] == TileType.topLeftCorner)
+                {
+                    grid.type = TileType.destructable;
+                    grid.gridSquare = Instantiate(cornerPiece, gridPos, Quaternion.identity) as GameObject;
+                }
+                else if (tiles[i, j] == TileType.topRightCorner)
+                {
+                    grid.type = TileType.destructable;
+                    grid.gridSquare = Instantiate(cornerPiece, gridPos, Quaternion.Euler(0, 0, -90)) as GameObject;
                 }
                 else
                 {
@@ -227,6 +257,10 @@ public enum TileType
     rightBoundary,
     topBoundary,
     bottomBoundary,
+    topRightCorner,
+    bottomRightCorner,
+    topLeftCorner,
+    bottomLeftCorner,
     goal,
     destructable
 }

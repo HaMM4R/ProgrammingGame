@@ -24,7 +24,15 @@ public class CodeInput : MonoBehaviour
         userCommands.Add("MOVERIGHT");
         userCommands.Add("ROTATE");
         userCommands.Add("FIRE");
-
+        userCommands.Add("FOR");
+        userCommands.Add("INCREMENTBY");
+        userCommands.Add("<");
+        userCommands.Add(">");
+        userCommands.Add("<=");
+        userCommands.Add(">=");
+        userCommands.Add("=");
+        userCommands.Add("!=");
+        
         commandCounter = 0; 
     }
 
@@ -63,7 +71,6 @@ public class CodeInput : MonoBehaviour
 
             for (int i = 0; i < code.Length; i++)
             {
-                Debug.Log(code[i]);
                 code[i] = code[i].ToUpper();
             }
 
@@ -111,52 +118,89 @@ public class CodeInput : MonoBehaviour
 
     void SubmitCode(string[] code)
     {
-        int numOfCalls = 1;
+        int forStart = 0;
+        int forEnd = 0;
+        int forIncrement = 0; 
+
         for (int i = 0; i < code.Length; i++)
         {
-            if (i + 1 < code.Length)
-            {
-                Debug.Log("TESTNG");
-                if (!userCommands.Contains(code[i + 1]))
-                {
-                    numOfCalls = int.Parse(code[i + 1]);
-                }
-            }
-
             if (code[i] == userCommands[0])
             {
-                for(int j = 0; j < numOfCalls; j++)
-                    pController.PlayerInput(0);
+                CallMethods("MOVEUP");
             }
             else if (code[i] == userCommands[1])
             {
-                for (int j = 0; j < numOfCalls; j++)
-                    pController.PlayerInput(1);
+                CallMethods("MOVEDOWN");
             }
             else if (code[i] == userCommands[2])
             {
-                for (int j = 0; j < numOfCalls; j++)
-                    pController.PlayerInput(2);
+                CallMethods("MOVELEFT");
             }
             else if (code[i] == userCommands[3])
             {
-                for (int j = 0; j < numOfCalls; j++)
-                    pController.PlayerInput(3);
+                CallMethods("MOVERIGHT");
             }
             else if (code[i] == userCommands[4])
             {
-                for (int j = 0; j < numOfCalls; j++)
-                    pController.PlayerInput(4);
+                CallMethods("ROTATE");
             }
-            else if (code[i] == userCommands[0])
+            else if (code[i] == userCommands[5])
             {
-                for (int j = 0; j < numOfCalls; j++)
-                    pShoot.Fire();
+                CallMethods("FIRE");
             }
-            else
+            else if(code[i] == userCommands[6] && i + 6 < code.Length)
+            {
+                forStart = int.Parse(code[i + 1]);
+                forEnd = int.Parse(code[i + 3]);
+                forIncrement = int.Parse(code[i + 5]);
+
+                List<string> commands = new List<string>(); 
+
+                for(int j = i + 6; j < code.Length; j++)
+                {
+                    if (code[j] == "MOVEUP" || code[j] == "MOVEDOWN" || code[j] == "MOVELEFT" || code[j] == "MOVERIGHT" || code[j] == "ROTATE" || code[j] == "FIRE")
+                    {
+                        commands.Add(code[j]);
+                    }
+                    else
+                        break; 
+                }
+
+                HandleFor(commands, forStart, forEnd, forIncrement);
+            }
+            /*else
             {
                 Debug.Log("INVALID COMMAND");
+            }*/
+        }
+    }
+
+    void HandleFor(List<string> methodToCall, int start, int end, int increment)
+    {
+        for(int i = start; i < end; i = i + increment)
+        {
+            Debug.Log("FOR1");
+            for (int j = 0; j < methodToCall.Count; j++)
+            {
+                Debug.Log("FOR2");
+                CallMethods(methodToCall[j]);
             }
         }
+    }
+
+    void CallMethods(string methodToCall)
+    {
+        if (methodToCall == "MOVEUP")
+            pController.PlayerInput(0);
+        else if (methodToCall == "MOVEDOWN")
+            pController.PlayerInput(1);
+        else if (methodToCall == "MOVELEFT")
+            pController.PlayerInput(2);
+        else if (methodToCall == "MOVERIGHT")
+            pController.PlayerInput(3);
+        else if (methodToCall == "ROTATE")
+            pController.PlayerInput(4);
+        else if (methodToCall == "FIRE")
+            pShoot.Fire();
     }
 }

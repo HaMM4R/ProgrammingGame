@@ -1,0 +1,11 @@
+for(int j = i + 6; i < code.Length; j++)
+                {
+                    Debug.Log(j);
+                    Debug.Log(code.Length);
+                    if (code[j] == "MOVEUP" || code[j] == "MOVEDOWN" || code[j] == "MOVELEFT" || code[j] == "MOVERIGHT" || code[j] == "ROTATE" || code[j] == "FIRE")
+                    {
+                        commands.Add(code[j]);
+                    }
+                    else
+                        break;
+                }
