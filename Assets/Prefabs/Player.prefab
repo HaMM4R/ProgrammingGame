@@ -141,7 +141,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058321d4a376ece42aa50a80e69711ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: 0
+  playerHealth: 100
+  explosion: {fileID: 641233, guid: 98ab57b1e7f561f49bb98c070ea9b73d, type: 3}
 --- !u!114 &5465194591720912486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,4 +169,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f38a1da45d657c748b10b4a4f3f142a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  g: {fileID: 0}
   cinematicOver: 0

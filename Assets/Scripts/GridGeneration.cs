@@ -29,7 +29,8 @@ public class GridGeneration : MonoBehaviour
     public GameObject edgePiece;
     public GameObject cornerPiece;
 
-    public GameObject player; 
+    public GameObject player;
+    public GameObject enemy; 
     public GameObject ammoPickup; 
 
     public int numberOfXGrid;
@@ -45,6 +46,7 @@ public class GridGeneration : MonoBehaviour
         SetLevelBoarders();
         InitialiseTiles();
         SpawnPlayer();
+        SpawnEnemy();
         SpawnAmmo();
         if(!skipIntro)
         IntroCinematic(); 
@@ -222,6 +224,11 @@ public class GridGeneration : MonoBehaviour
     {
         GameObject Player = Instantiate(player, gridSquares[startingTile].gridSquare.transform.position, Quaternion.identity) as GameObject;
         gameObject.GetComponent<CodeInput>().GetPlayer(Player); 
+    }
+
+    void SpawnEnemy()
+    {
+        Instantiate(enemy, gridSquares[46].gridSquare.transform.position, Quaternion.identity);
     }
 
     void IntroCinematic()

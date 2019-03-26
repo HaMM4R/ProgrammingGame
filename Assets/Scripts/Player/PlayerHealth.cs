@@ -4,18 +4,21 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public float playerHealth; 
+    public float playerHealth;
+    public GameObject explosion; 
 
     void Start()
     {
-        playerHealth = 100;
     }
     
     void Update()
     {
         CheckHealth();
-        if (Input.GetKeyDown(KeyCode.P))
-            playerHealth -= 20; 
+    }
+
+    public void Damage(float damage)
+    {
+        playerHealth -= damage;
     }
 
     void CheckHealth()
@@ -26,6 +29,7 @@ public class PlayerHealth : MonoBehaviour
 
     void Die()
     {
+        Instantiate(explosion, transform.position, transform.rotation);
         Destroy(gameObject);
     }
         
