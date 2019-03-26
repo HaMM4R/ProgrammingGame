@@ -37,6 +37,7 @@ public class GridGeneration : MonoBehaviour
     public int numberOfYGrid;
 
     public int startingTile;
+    public int startingTileEnemy;
     private TileType[,] tiles; 
 
 
@@ -228,7 +229,7 @@ public class GridGeneration : MonoBehaviour
 
     void SpawnEnemy()
     {
-        Instantiate(enemy, gridSquares[46].gridSquare.transform.position, Quaternion.identity);
+        Instantiate(enemy, gridSquares[startingTileEnemy].gridSquare.transform.position, Quaternion.identity);
     }
 
     void IntroCinematic()
