@@ -168,10 +168,26 @@ public class PlayerController : MonoBehaviour
 
                 if (Vector3.Distance(transform.position, target.position) < 0.001f)
                 {
+                    if (grid.gridSquares[moveTrace[nextGridSquare]].type == TileType.goal)
+                    {
+                        EndLevel();
+                    }
+
                     nextGridSquare++;
-                    codeInput.instructionComplete = true; 
+                    codeInput.instructionComplete = true;
+                    
                 }
             }
         }
+
+        if(moveTrace.Count == 0 && rotateTrace.Count != 0)
+        {
+            PlayerRotate(rotateTrace[0]);
+        }
     } 
+
+    void EndLevel()
+    {
+        grid.ClearLevel();
+    }
 }

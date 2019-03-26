@@ -98,13 +98,23 @@ public class CameraManager : MonoBehaviour
         string instructions = "";
         if (displayInstructions)
         {
-            if (i == 0)
-                instructions = "These blocks are destroyable, shoot at them to be able to move over them!";
-            else if(i == 1)
-                instructions = "Navigate over these blocks to pickup ammo!";
-            else if(i == 2)
-                instructions = "and finally this is you, enter commands in the box to the left to nagivate!";
+            if(g.level == 0)
+            {
+                if (i == 0)
+                    instructions = "This is the goal block, navigate here using various commands to complete the level!";
+                else
+                    instructions = "Good Luck!";
+            }
 
+            if (g.level == 1)
+            {
+                if (i == 0)
+                    instructions = "These blocks are destroyable, shoot at them to be able to move over them!";
+                else if (i == 1)
+                    instructions = "Navigate over these blocks to pickup ammo!";
+                else if (i == 2)
+                    instructions = "and finally this is you, enter commands in the box to the left to nagivate!";
+            }
 
             GUI.Box(new Rect(Screen.width / 2 - 230, Screen.height / 2 - 100, 200, 200), instructions, style);
         }

@@ -14,10 +14,15 @@ public class GridGeneration : MonoBehaviour
         public TileType type; 
     }
 
+    //make private when finished testing
+    public int level;
+
     public List<GridSquare> gridSquares = new List<GridSquare>();
     public List<GameObject> ammoPickups = new List<GameObject>();
 
-    public bool skipIntro; 
+    public bool skipIntro;
+    bool spawnEnemy;
+    bool spawnAmmo; 
     
     public List<int> introTrace = new List<int>();
 
@@ -38,46 +43,85 @@ public class GridGeneration : MonoBehaviour
 
     public int startingTile;
     public int startingTileEnemy;
-    private TileType[,] tiles; 
+    private TileType[,] tiles;
 
+    GameObject Player; 
 
     void Start()
     {
-        ChooseTileType();
-        SetLevelBoarders();
-        InitialiseTiles();
-        SpawnPlayer();
-        SpawnEnemy();
-        SpawnAmmo();
-        if(!skipIntro)
-        IntroCinematic(); 
+        LevelSetup();
+        
+        if (!skipIntro)
+            IntroCinematic(); 
     }
     
     void Update()
     {
         
     }
+
+    void LevelSetup()
+    {
+        if(level == 0)
+        {
+            numberOfXGrid = 5;
+            numberOfYGrid = 5;
+            startingTile = 6;
+            spawnEnemy = false;
+            spawnAmmo = false;
+        }
+
+        if(level == 1)
+        {
+            numberOfXGrid = 9;
+            numberOfYGrid = 9;
+            startingTile = 10;
+            spawnEnemy = true;
+            spawnAmmo = true; 
+        }
+
+        ChooseTileType();
+        SetLevelBoarders();
+        InitialiseTiles();
+        SpawnPlayer();
+        if (spawnEnemy)
+            SpawnEnemy();
+        if(spawnAmmo)
+            SpawnAmmo();
+    }   
     
     //Sets type of tile ready for grid generation 
     void ChooseTileType()
     {
+        Debug.Log(numberOfXGrid);
+        Debug.Log(numberOfYGrid);
         tiles = new TileType[numberOfXGrid, numberOfYGrid];
 
-        for(int i = 0; i < numberOfYGrid; i++)
-            tiles[i, 6] = TileType.obstical;
+        if(level == 0)
+        {
+            tiles[3, 1] = TileType.goal;
+            tiles[2, 2] = TileType.obstical;
+            tiles[2, 1] = TileType.obstical;
+        }
 
-        for (int i = 0; i < numberOfYGrid; i++)
-            tiles[i, 7] = TileType.goal;
+        if (level == 1)
+        {
+            for (int i = 0; i < numberOfYGrid; i++)
+                tiles[i, 6] = TileType.obstical;
 
-        tiles[4, 6] = TileType.destructable;
-        tiles[2, 1] = TileType.obstical;
-        tiles[2, 2] = TileType.obstical;
-        tiles[2, 3] = TileType.obstical;
-        tiles[2, 4] = TileType.obstical;
-        tiles[3, 4] = TileType.obstical;
-        tiles[5, 4] = TileType.obstical;
-        tiles[6, 4] = TileType.obstical;
-        tiles[7, 4] = TileType.obstical;
+            for (int i = 0; i < numberOfYGrid; i++)
+                tiles[i, 7] = TileType.goal;
+
+            tiles[4, 6] = TileType.destructable;
+            tiles[2, 1] = TileType.obstical;
+            tiles[2, 2] = TileType.obstical;
+            tiles[2, 3] = TileType.obstical;
+            tiles[2, 4] = TileType.obstical;
+            tiles[3, 4] = TileType.obstical;
+            tiles[5, 4] = TileType.obstical;
+            tiles[6, 4] = TileType.obstical;
+            tiles[7, 4] = TileType.obstical;
+        }
 
     }
 
@@ -141,22 +185,22 @@ public class GridGeneration : MonoBehaviour
                 }
                 else if (tiles[i, j] == TileType.leftBoundary)
                 {
-                    grid.type = TileType.leftBoundary;
+                    grid.type = TileType.obstical;
                     grid.gridSquare = Instantiate(edgePiece, gridPos, Quaternion.Euler(0,0, 90)) as GameObject;
                 }
                 else if (tiles[i, j] == TileType.rightBoundary)
                 {
-                    grid.type = TileType.rightBoundary;
+                    grid.type = TileType.obstical;
                     grid.gridSquare = Instantiate(edgePiece, gridPos, Quaternion.Euler(0, 0, -90)) as GameObject;
                 }
                 else if (tiles[i, j] == TileType.topBoundary)
                 {
-                    grid.type = TileType.topBoundary;
+                    grid.type = TileType.obstical;
                     grid.gridSquare = Instantiate(edgePiece, gridPos, Quaternion.identity) as GameObject;
                 }
                 else if (tiles[i, j] == TileType.bottomBoundary)
                 {
-                    grid.type = TileType.bottomBoundary;
+                    grid.type = TileType.obstical;
                     grid.gridSquare = Instantiate(edgePiece, gridPos, Quaternion.Euler(0, 0, -180)) as GameObject;
                 }
                 else if(tiles[i, j] == TileType.destructable)
@@ -167,22 +211,22 @@ public class GridGeneration : MonoBehaviour
                 }
                 else if (tiles[i, j] == TileType.bottomLeftCorner)
                 {
-                    grid.type = TileType.bottomLeftCorner;
+                    grid.type = TileType.obstical;
                     grid.gridSquare = Instantiate(cornerPiece, gridPos, Quaternion.Euler(0, 0, 90)) as GameObject;
                 }
                 else if (tiles[i, j] == TileType.bottomRightCorner)
                 {
-                    grid.type = TileType.bottomRightCorner;
+                    grid.type = TileType.obstical;
                     grid.gridSquare = Instantiate(cornerPiece, gridPos, Quaternion.Euler(0, 0, 180)) as GameObject;
                 }
                 else if (tiles[i, j] == TileType.topLeftCorner)
                 {
-                    grid.type = TileType.topLeftCorner;
+                    grid.type = TileType.obstical;
                     grid.gridSquare = Instantiate(cornerPiece, gridPos, Quaternion.identity) as GameObject;
                 }
                 else if (tiles[i, j] == TileType.topRightCorner)
                 {
-                    grid.type = TileType.topRightCorner;
+                    grid.type = TileType.obstical;
                     grid.gridSquare = Instantiate(cornerPiece, gridPos, Quaternion.Euler(0, 0, -90)) as GameObject;
                 }
                 else
@@ -223,7 +267,7 @@ public class GridGeneration : MonoBehaviour
     //Spawns in the player 
     void SpawnPlayer()
     {
-        GameObject Player = Instantiate(player, gridSquares[startingTile].gridSquare.transform.position, Quaternion.identity) as GameObject;
+        Player = Instantiate(player, gridSquares[startingTile].gridSquare.transform.position, Quaternion.identity) as GameObject;
         gameObject.GetComponent<CodeInput>().GetPlayer(Player); 
     }
 
@@ -234,18 +278,27 @@ public class GridGeneration : MonoBehaviour
 
     void IntroCinematic()
     {
-        for (int i = 0; i < gridSquares.Count; i++)
+        if(level == 0)
         {
-            //Finds the correct tile at the right X and Y position and moves the player there
-            if (gridSquares[i].type == TileType.destructable)
-            {
-                introTrace.Add(i);
-            }
+            introTrace.Add(16);
+            introTrace.Add(startingTile);
         }
 
-        introTrace.Add(47);
-        introTrace.Add(startingTile);
-        Debug.Log(introTrace[0]);
+        if (level == 1)
+        {
+            for (int i = 0; i < gridSquares.Count; i++)
+            {
+                //Finds the correct tile at the right X and Y position and moves the player there
+                if (gridSquares[i].type == TileType.destructable)
+                {
+                    introTrace.Add(i);
+                }
+            }
+
+            introTrace.Add(47);
+            introTrace.Add(startingTile);
+        }
+
         var c = player.gameObject.GetComponent<CameraManager>();
         c.StartCinematic(); 
     }
@@ -254,6 +307,12 @@ public class GridGeneration : MonoBehaviour
     {
         GameObject pickup = Instantiate(ammoPickup, gridSquares[47].gridSquare.transform.position, Quaternion.identity) as GameObject;
         ammoPickups.Add(pickup);
+    }
+
+    public void ClearLevel()
+    {
+        level++; 
+        Application.LoadLevel(level.ToString());
     }
 }
 

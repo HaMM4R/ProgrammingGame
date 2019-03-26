@@ -54,7 +54,8 @@ public class CodeInput : MonoBehaviour
         {
             if (pController.HasControl)
             {
-                userCode = GUI.TextArea(new Rect(10, 10, Screen.width / 4, Screen.height - 100), userCode);
+                userCode = GUI.TextArea(new Rect(10, 185, Screen.width / 4, Screen.height - 275), userCode);
+                GUI.Box(new Rect(10, 10, Screen.width / 4, 160), "\n - COMMANDS - \n CAN BE ENTERED LINE BY LINE AND SUBMITTED \n OR AT ONCE ON DIFFERENT LINES THEN SUBMITTED \n \n MOVEUP \n MOVEDOWN \n MOVELEFT \n MOVERIGHT");
 
                 if (GUI.Button(new Rect(10, Screen.height - 80, Screen.width / 4, 60), "Submit"))
                 {

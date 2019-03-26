@@ -20,7 +20,7 @@ public class Bullet : MonoBehaviour
             collision.gameObject.GetComponent<TileDestroy>().Destroy();
         }
 
-        if(collision.gameObject.tag == "Enemy")
+        if(collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Player")
         {
             collision.gameObject.GetComponent<PlayerHealth>().Damage(damage);
         }

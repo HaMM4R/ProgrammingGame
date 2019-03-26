@@ -12,6 +12,11 @@ public class EnemyController : MonoBehaviour
     public List<int> moveTrace = new List<int>();
     int nextGridSquare;
 
+    float fireDelay = 5;
+
+    public GameObject bullet;
+    public GameObject fireLocation; 
+
     void Start()
     {
         var Manager = GameObject.FindGameObjectWithTag("GameController");
@@ -30,7 +35,8 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        SmoothMove(); 
+        SmoothMove();
+        Fire(); 
     }
 
     void SmoothMove()
@@ -51,5 +57,16 @@ public class EnemyController : MonoBehaviour
 
         if (nextGridSquare >= moveTrace.Count)
             nextGridSquare = 0;
+    }
+
+    void Fire()
+    {
+        if (fireDelay > 0)
+            fireDelay -= Time.deltaTime;
+        else
+        {
+            Instantiate(bullet, fireLocation.transform.position, fireLocation.transform.rotation);
+            fireDelay = 5;
+        }
     }
 }
