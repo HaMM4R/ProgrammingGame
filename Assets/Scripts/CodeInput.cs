@@ -32,6 +32,7 @@ public class CodeInput : MonoBehaviour
         userCommands.Add(">=");
         userCommands.Add("=");
         userCommands.Add("!=");
+        userCommands.Add("ENDFOR");
         
         commandCounter = 0; 
     }
@@ -118,9 +119,6 @@ public class CodeInput : MonoBehaviour
 
     void SubmitCode(string[] code)
     {
-        int forStart = 0;
-        int forEnd = 0;
-        int forIncrement = 0; 
 
         for (int i = 0; i < code.Length; i++)
         {
@@ -150,29 +148,36 @@ public class CodeInput : MonoBehaviour
             }
             else if(code[i] == userCommands[6] && i + 6 < code.Length)
             {
-                forStart = int.Parse(code[i + 1]);
-                forEnd = int.Parse(code[i + 3]);
-                forIncrement = int.Parse(code[i + 5]);
-
-                List<string> commands = new List<string>(); 
-
-                for(int j = i + 6; j < code.Length; j++)
-                {
-                    if (code[j] == "MOVEUP" || code[j] == "MOVEDOWN" || code[j] == "MOVELEFT" || code[j] == "MOVERIGHT" || code[j] == "ROTATE" || code[j] == "FIRE")
-                    {
-                        commands.Add(code[j]);
-                    }
-                    else
-                        break; 
-                }
-
-                HandleFor(commands, forStart, forEnd, forIncrement);
+                For(code, i);
             }
             /*else
             {
                 Debug.Log("INVALID COMMAND");
             }*/
         }
+    }
+
+    void For(string[] code, int index)
+    {
+        int forStart = int.Parse(code[index + 1]);
+        int forEnd = int.Parse(code[index + 3]);
+        int forIncrement = int.Parse(code[index + 5]);
+
+        List<string> commands = new List<string>();
+
+        Debug.Log(userCommands[14]);
+
+        for (int j = index + 6; j < code.Length; j++)
+        {
+            if (code[j] != userCommands[14])
+            {
+                commands.Add(code[j]);
+            }
+            else
+                break;
+        }
+
+        HandleFor(commands, forStart, forEnd, forIncrement);
     }
 
     void HandleFor(List<string> methodToCall, int start, int end, int increment)

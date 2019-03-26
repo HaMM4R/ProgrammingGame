@@ -164,22 +164,22 @@ public class GridGeneration : MonoBehaviour
                 }
                 else if (tiles[i, j] == TileType.bottomLeftCorner)
                 {
-                    grid.type = TileType.destructable;
+                    grid.type = TileType.bottomLeftCorner;
                     grid.gridSquare = Instantiate(cornerPiece, gridPos, Quaternion.Euler(0, 0, 90)) as GameObject;
                 }
                 else if (tiles[i, j] == TileType.bottomRightCorner)
                 {
-                    grid.type = TileType.destructable;
+                    grid.type = TileType.bottomRightCorner;
                     grid.gridSquare = Instantiate(cornerPiece, gridPos, Quaternion.Euler(0, 0, 180)) as GameObject;
                 }
                 else if (tiles[i, j] == TileType.topLeftCorner)
                 {
-                    grid.type = TileType.destructable;
+                    grid.type = TileType.topLeftCorner;
                     grid.gridSquare = Instantiate(cornerPiece, gridPos, Quaternion.identity) as GameObject;
                 }
                 else if (tiles[i, j] == TileType.topRightCorner)
                 {
-                    grid.type = TileType.destructable;
+                    grid.type = TileType.topRightCorner;
                     grid.gridSquare = Instantiate(cornerPiece, gridPos, Quaternion.Euler(0, 0, -90)) as GameObject;
                 }
                 else
