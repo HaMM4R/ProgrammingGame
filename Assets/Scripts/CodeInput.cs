@@ -1,13 +1,23 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CodeInput : MonoBehaviour
 {
+    [Serializable]
+    public struct Functions
+    {
+        public string name;
+        public List<string> funcCommands; 
+    }
+    
+
     PlayerShoot pShoot;
     PlayerController pController;
 
-    List<string> userCommands = new List<string>(); 
+    List<string> userCommands = new List<string>();
+    public List<Functions> functions = new List<Functions>();
 
     string userCode;
 
@@ -18,10 +28,10 @@ public class CodeInput : MonoBehaviour
 
     void Start()
     {
-        userCommands.Add("MOVEUP");
-        userCommands.Add("MOVEDOWN");
-        userCommands.Add("MOVELEFT");
-        userCommands.Add("MOVERIGHT");
+        userCommands.Add("TANK.MOVEUP()");
+        userCommands.Add("TANK.MOVEDOWN()");
+        userCommands.Add("TANK.MOVELEFT()");
+        userCommands.Add("TANK.MOVERIGHT()");
         userCommands.Add("ROTATE");
         userCommands.Add("FIRE");
         userCommands.Add("FOR");
@@ -33,7 +43,9 @@ public class CodeInput : MonoBehaviour
         userCommands.Add("=");
         userCommands.Add("!=");
         userCommands.Add("ENDFOR");
-        
+        userCommands.Add("FUNCTION");
+        userCommands.Add("ENDFUNCTION");
+
         commandCounter = 0; 
     }
 
@@ -120,24 +132,25 @@ public class CodeInput : MonoBehaviour
 
     void SubmitCode(string[] code)
     {
+        int functionCounter;
 
         for (int i = 0; i < code.Length; i++)
         {
             if (code[i] == userCommands[0])
             {
-                CallMethods("MOVEUP");
+                CallMethods("TANK.MOVEUP()");
             }
             else if (code[i] == userCommands[1])
             {
-                CallMethods("MOVEDOWN");
+                CallMethods("TANK.MOVEDOWN()");
             }
             else if (code[i] == userCommands[2])
             {
-                CallMethods("MOVELEFT");
+                CallMethods("TANK.MOVELEFT()");
             }
             else if (code[i] == userCommands[3])
             {
-                CallMethods("MOVERIGHT");
+                CallMethods("TANK.MOVERIGHT()");
             }
             else if (code[i] == userCommands[4])
             {
@@ -147,9 +160,24 @@ public class CodeInput : MonoBehaviour
             {
                 CallMethods("FIRE");
             }
-            else if(code[i] == userCommands[6] && i + 6 < code.Length)
+            else if (code[i] == userCommands[6] && i + 6 < code.Length)
             {
                 For(code, i);
+            }
+            else if (code[i] == userCommands[15])
+            {
+                functionCounter = HandleFunction(code, i);
+            }
+
+            for(int j = 0; j < functions.Count; j++)
+            {
+                if(code[i] == functions[j].name)
+                {
+                    for(int x = 0; x < functions[j].funcCommands.Count; x++)
+                    {
+                        CallMethods(functions[j].funcCommands[x]);
+                    }
+                }
             }
             /*else
             {
@@ -194,15 +222,40 @@ public class CodeInput : MonoBehaviour
         }
     }
 
+    int HandleFunction(string[] code, int index)
+    {
+        int numOfCommands = 0; 
+        Functions f;
+        List<string> commands = new List<string>();
+
+        f.name = code[index + 1];
+
+        for (int i = 0; i < code.Length; i++)
+        {
+            Debug.Log(code[i]);
+            if (i != (index + 1) && i != index)
+            {
+                commands.Add(code[i]);
+                numOfCommands++; 
+            }
+            else if (code[i] == userCommands[16])
+                break; 
+        }
+
+        f.funcCommands = commands; 
+        functions.Add(f);
+        return numOfCommands; 
+    }
+
     void CallMethods(string methodToCall)
     {
-        if (methodToCall == "MOVEUP")
+        if (methodToCall == "TANK.MOVEUP()")
             pController.PlayerInput(0);
-        else if (methodToCall == "MOVEDOWN")
+        else if (methodToCall == "TANK.MOVEDOWN()")
             pController.PlayerInput(1);
-        else if (methodToCall == "MOVELEFT")
+        else if (methodToCall == "TANK.MOVELEFT()")
             pController.PlayerInput(2);
-        else if (methodToCall == "MOVERIGHT")
+        else if (methodToCall == "TANK.MOVERIGHT()")
             pController.PlayerInput(3);
         else if (methodToCall == "ROTATE")
             pController.PlayerInput(4);
