@@ -46,9 +46,12 @@ TagManager:
   - name: Level
     uniqueID: 1052485415
     locked: 0
-  - name: Tank
+  - name: GridDot
     uniqueID: 102427321
     locked: 0
-  - name: Bullet
+  - name: Tank
     uniqueID: 3868170229
+    locked: 0
+  - name: Bullet
+    uniqueID: 1312163021
     locked: 0

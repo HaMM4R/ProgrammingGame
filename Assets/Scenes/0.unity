@@ -201,6 +201,11 @@ PrefabInstance:
       propertyPath: startingTileEnemy
       value: 46
       objectReference: {fileID: 0}
+    - target: {fileID: 6060936604495510143, guid: 5301c3bb4d8ba5b4eab002226825e8b0,
+        type: 3}
+      propertyPath: level
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5301c3bb4d8ba5b4eab002226825e8b0, type: 3}
 --- !u!1 &519420028

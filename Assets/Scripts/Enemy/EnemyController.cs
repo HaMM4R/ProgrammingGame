@@ -25,6 +25,7 @@ public class EnemyController : MonoBehaviour
         curX = grid.gridSquares[grid.startingTileEnemy].x;
         curY = grid.gridSquares[grid.startingTileEnemy].y;
 
+        transform.rotation = Quaternion.Euler(0,0,-90);
         
         moveTrace.Add(grid.startingTileEnemy);
         moveTrace.Add(grid.startingTileEnemy + grid.numberOfXGrid);
@@ -35,7 +36,7 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        SmoothMove();
+        //SmoothMove();
         Fire(); 
     }
 

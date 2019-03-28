@@ -43,6 +43,7 @@ public class GridGeneration : MonoBehaviour
 
     public int startingTile;
     public int startingTileEnemy;
+    public int startingTileAmmo; 
     private TileType[,] tiles;
 
     GameObject Player; 
@@ -66,12 +67,30 @@ public class GridGeneration : MonoBehaviour
         {
             numberOfXGrid = 5;
             numberOfYGrid = 5;
-            startingTile = 6;
+            startingTile = 11;
             spawnEnemy = false;
             spawnAmmo = false;
         }
 
-        if(level == 1)
+        if (level == 1)
+        {
+            numberOfXGrid = 3;
+            numberOfYGrid = 12;
+            startingTile = 13;
+            spawnEnemy = false;
+            spawnAmmo = false;
+        }
+
+        if (level == 2)
+        {
+            numberOfXGrid = 7;
+            numberOfYGrid = 6;
+            startingTile = 7;
+            spawnEnemy = true;
+            spawnAmmo = true;
+        }
+
+        if (level == 3)
         {
             numberOfXGrid = 9;
             numberOfYGrid = 9;
@@ -99,12 +118,27 @@ public class GridGeneration : MonoBehaviour
 
         if(level == 0)
         {
-            tiles[3, 1] = TileType.goal;
+            tiles[2, 3] = TileType.goal;
             tiles[2, 2] = TileType.obstical;
-            tiles[2, 1] = TileType.obstical;
         }
 
-        if (level == 1)
+        if(level == 1)
+        {
+            tiles[1, 10] = TileType.goal;
+        }
+
+        if (level == 2)
+        {
+            tiles[2, 1] = TileType.obstical;
+            tiles[2, 2] = TileType.obstical;
+            tiles[2, 3] = TileType.obstical;
+            tiles[3, 3] = TileType.obstical;
+            tiles[4, 3] = TileType.obstical;
+            tiles[4, 2] = TileType.obstical;
+            tiles[3, 2] = TileType.goal;
+        }
+
+        if (level == 3)
         {
             for (int i = 0; i < numberOfYGrid; i++)
                 tiles[i, 6] = TileType.obstical;
@@ -284,7 +318,7 @@ public class GridGeneration : MonoBehaviour
             introTrace.Add(startingTile);
         }
 
-        if (level == 1)
+        if (level == 2)
         {
             for (int i = 0; i < gridSquares.Count; i++)
             {
@@ -305,7 +339,7 @@ public class GridGeneration : MonoBehaviour
 
     void SpawnAmmo()
     {
-        GameObject pickup = Instantiate(ammoPickup, gridSquares[47].gridSquare.transform.position, Quaternion.identity) as GameObject;
+        GameObject pickup = Instantiate(ammoPickup, gridSquares[startingTileAmmo].gridSquare.transform.position, Quaternion.identity) as GameObject;
         ammoPickups.Add(pickup);
     }
 

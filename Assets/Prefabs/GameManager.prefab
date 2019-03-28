@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a663c4f42a4c964c987ca32337fb304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 1
   gridSquares: []
   ammoPickups: []
   skipIntro: 0
@@ -58,12 +59,16 @@ MonoBehaviour:
     type: 3}
   edgePiece: {fileID: 8138326915514664700, guid: 31667a3498a235e41b1a25545da7d392,
     type: 3}
+  cornerPiece: {fileID: 5908226390238235550, guid: 84b7e5c0b5b73e941b986d2735a86fcb,
+    type: 3}
   player: {fileID: 1869550150505289807, guid: e3dcb164f279f75429e731942273c750, type: 3}
+  enemy: {fileID: 6440482317641392564, guid: de33c0ed06a0e194abe66135dd053ffc, type: 3}
   ammoPickup: {fileID: 8474850875308429485, guid: 0ac5120d2d0bcf344aaeb8d278eb4dae,
     type: 3}
   numberOfXGrid: 9
   numberOfYGrid: 9
   startingTile: 10
+  startingTileEnemy: 46
 --- !u!114 &937351272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,3 +81,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d39c5373502146f43b32c6c9ca8a4509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  functions: []
