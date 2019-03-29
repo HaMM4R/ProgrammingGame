@@ -88,9 +88,8 @@ public class CodeInput : MonoBehaviour
                 code[i] = code[i].ToUpper();
             }
 
+            functions.Clear(); 
             SubmitCode(code);
-
-            userCode = "";
             submitted = false; 
         }
     }
@@ -132,8 +131,6 @@ public class CodeInput : MonoBehaviour
 
     void SubmitCode(string[] code)
     {
-        int functionCounter;
-
         for (int i = 0; i < code.Length; i++)
         {
             if (code[i] == userCommands[0])
@@ -166,18 +163,28 @@ public class CodeInput : MonoBehaviour
             }
             else if (code[i] == userCommands[15])
             {
-                functionCounter = HandleFunction(code, i);
+                HandleFunction(code, i);
+
+                for(int j = i; j < code.Length; j++)
+                {
+                    if(code[j] == userCommands[16])
+                    {
+                        i = j; 
+                        break; 
+                    }
+                }
             }
 
             for(int j = 0; j < functions.Count; j++)
             {
+                Debug.Log(j);
                 if(code[i] == functions[j].name)
                 {
+                    Debug.Log(functions[j].name);
                     for(int x = 0; x < functions[j].funcCommands.Count; x++)
                     {
                         if(functions[j].funcCommands[x] == userCommands[6])
                         {
-                            Debug.Log("FOR!");
                             For(functions[j].funcCommands.ToArray(), x);
                         }
                         else
@@ -219,16 +226,14 @@ public class CodeInput : MonoBehaviour
     {
         for(int i = start; i < end; i = i + increment)
         {
-            Debug.Log("FOR1");
             for (int j = 0; j < methodToCall.Count; j++)
             {
-                Debug.Log("FOR2");
                 CallMethods(methodToCall[j]);
             }
         }
     }
 
-    int HandleFunction(string[] code, int index)
+    void HandleFunction(string[] code, int index)
     {
         int numOfCommands = 0; 
         Functions f;
@@ -238,19 +243,19 @@ public class CodeInput : MonoBehaviour
 
         for (int i = 0; i < code.Length; i++)
         {
-            Debug.Log(code[i]);
             if (i != (index + 1) && i != index)
             {
                 commands.Add(code[i]);
-                numOfCommands++; 
             }
-            else if (code[i] == userCommands[16])
+            
+            if (code[i] == "ENDFUNCTION")
+            {
                 break; 
+            }
         }
 
         f.funcCommands = commands; 
         functions.Add(f);
-        return numOfCommands; 
     }
 
     void CallMethods(string methodToCall)
