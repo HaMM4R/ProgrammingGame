@@ -175,7 +175,13 @@ public class CodeInput : MonoBehaviour
                 {
                     for(int x = 0; x < functions[j].funcCommands.Count; x++)
                     {
-                        CallMethods(functions[j].funcCommands[x]);
+                        if(functions[j].funcCommands[x] == userCommands[6])
+                        {
+                            Debug.Log("FOR!");
+                            For(functions[j].funcCommands.ToArray(), x);
+                        }
+                        else
+                            CallMethods(functions[j].funcCommands[x]);
                     }
                 }
             }
