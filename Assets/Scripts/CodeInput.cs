@@ -241,7 +241,7 @@ public class CodeInput : MonoBehaviour
 
         f.name = code[index + 1];
 
-        for (int i = 0; i < code.Length; i++)
+        for (int i = index; i < code.Length; i++)
         {
             if (i != (index + 1) && i != index)
             {
