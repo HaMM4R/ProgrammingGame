@@ -186,17 +186,10 @@ public class CodeInput : MonoBehaviour
                 if(code[i] == functions[j].name)
                 {
                     Debug.Log(functions[j].name);
-                    for(int x = 0; x < functions[j].funcCommands.Count; x++)
-                    {
-                        if(functions[j].funcCommands[x] == userCommands[6])
-                        {
-                            For(functions[j].funcCommands.ToArray(), x);
-                        }
-                        else
-                            CallMethods(functions[j].funcCommands[x]);
-                    }
+                    StartCoroutine(CallFunction(j));
                 }
             }
+
             /*else
             {
                 Debug.Log("INVALID COMMAND");
@@ -224,15 +217,16 @@ public class CodeInput : MonoBehaviour
                 break;
         }
 
-        HandleFor(commands, forStart, forEnd, forIncrement);
+        StartCoroutine(HandleFor(commands, forStart, forEnd, forIncrement));
     }
 
-    void HandleFor(List<string> methodToCall, int start, int end, int increment)
+    IEnumerator HandleFor(List<string> methodToCall, int start, int end, int increment)
     {
         for(int i = start; i < end; i = i + increment)
         {
             for (int j = 0; j < methodToCall.Count; j++)
             {
+                yield return new WaitUntil(() => complete == true);
                 CallMethods(methodToCall[j]);
             }
         }
@@ -240,7 +234,6 @@ public class CodeInput : MonoBehaviour
 
     void HandleFunction(string[] code, int index)
     {
-        int numOfCommands = 0; 
         Functions f;
         List<string> commands = new List<string>();
 
@@ -261,6 +254,20 @@ public class CodeInput : MonoBehaviour
 
         f.funcCommands = commands; 
         functions.Add(f);
+    }
+
+    IEnumerator CallFunction(int j)
+    {
+        for (int x = 0; x < functions[j].funcCommands.Count; x++)
+        {
+            yield return new WaitUntil(() => complete == true);
+            if (functions[j].funcCommands[x] == userCommands[6])
+            {
+                For(functions[j].funcCommands.ToArray(), x);
+            }
+            else
+                CallMethods(functions[j].funcCommands[x]);
+        }
     }
 
     void CallMethods(string methodToCall)
