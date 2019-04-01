@@ -33,8 +33,8 @@ public class CodeInput : MonoBehaviour
         userCommands.Add("TANK.MOVEDOWN()");
         userCommands.Add("TANK.MOVELEFT()");
         userCommands.Add("TANK.MOVERIGHT()");
-        userCommands.Add("ROTATE");
-        userCommands.Add("FIRE");
+        userCommands.Add("TANK.MOVEROTATE()");
+        userCommands.Add("TANK.FIRE()");
         userCommands.Add("FOR");
         userCommands.Add("INCREMENTBY");
         userCommands.Add("<");
@@ -67,8 +67,7 @@ public class CodeInput : MonoBehaviour
         {
             if (pController.HasControl)
             {
-                userCode = GUI.TextArea(new Rect(10, 185, Screen.width / 4, Screen.height - 275), userCode);
-                GUI.Box(new Rect(10, 10, Screen.width / 4, 160), "\n - COMMANDS - \n CAN BE ENTERED LINE BY LINE AND SUBMITTED \n OR AT ONCE ON DIFFERENT LINES THEN SUBMITTED \n \n MOVEUP \n MOVEDOWN \n MOVELEFT \n MOVERIGHT");
+                userCode = GUI.TextArea(new Rect(10, 10, Screen.width / 4, Screen.height - 100), userCode);
 
                 if (GUI.Button(new Rect(10, Screen.height - 80, Screen.width / 4, 60), "Submit"))
                 {
@@ -156,11 +155,11 @@ public class CodeInput : MonoBehaviour
             }
             else if (code[i] == userCommands[4])
             {
-                CallMethods("ROTATE");
+                CallMethods("TANK.ROTATE()");
             }
             else if (code[i] == userCommands[5])
             {
-                CallMethods("FIRE");
+                CallMethods("TANK.FIRE()");
             }
             else if (code[i] == userCommands[6] && i + 6 < code.Length)
             {
@@ -280,9 +279,9 @@ public class CodeInput : MonoBehaviour
             pController.PlayerInput(2);
         else if (methodToCall == "TANK.MOVERIGHT()")
             pController.PlayerInput(3);
-        else if (methodToCall == "ROTATE")
+        else if (methodToCall == "TANK.ROTATE()")
             pController.PlayerInput(4);
-        else if (methodToCall == "FIRE")
+        else if (methodToCall == "TANK.FIRE()")
             pShoot.Fire();
     }
 }

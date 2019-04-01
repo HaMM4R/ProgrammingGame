@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     int currentX;
     int currentY;
 
-    bool hasControl; 
+    bool hasControl = true; 
     public bool HasControl { get { return hasControl; } set { hasControl = value; } }
 
     int nextGridSquare;
@@ -29,7 +29,6 @@ public class PlayerController : MonoBehaviour
     //Gets the grid and sets up player ready for movement
     void Start()
     {
-        hasControl = false; 
         var Manager = GameObject.FindGameObjectWithTag("GameController");
         grid = Manager.GetComponent<GridGeneration>();
         codeInput = Manager.GetComponent<CodeInput>();
@@ -49,7 +48,7 @@ public class PlayerController : MonoBehaviour
     
     void Update()
     {
-        hasControl = camManager.cinematicOver; 
+        //hasControl = camManager.cinematicOver; 
         if (hasControl)
         {
             SmoothMove();
