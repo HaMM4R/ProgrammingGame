@@ -54,17 +54,21 @@ public class PlayerController : MonoBehaviour
         {
             SmoothMove();
             SmoothRotate();
+            RotateTimer();
         }
     }
 
     //Takes input from the player (later will be replaced with the user generated code)
     public void PlayerInput(int direction)
     {
+        codeInput.instructionComplete = false;
         if (direction <= 3)
             PlayerMove(direction);
         else
             PlayerRotate(-1);
     }
+
+    float timer;
 
     void PlayerRotate(int degrees)
     {
@@ -73,6 +77,15 @@ public class PlayerController : MonoBehaviour
         else
             curRot = degrees;
         stillRotateTarget = Quaternion.Euler(0,0, curRot);
+        timer = 1; 
+    }
+
+    void RotateTimer()
+    {
+        if (timer > 0)
+            timer -= Time.deltaTime;
+        else
+            codeInput.instructionComplete = true; 
     }
 
     public void SmoothRotate()
@@ -175,7 +188,6 @@ public class PlayerController : MonoBehaviour
 
                     nextGridSquare++;
                     codeInput.instructionComplete = true;
-                    
                 }
             }
         }

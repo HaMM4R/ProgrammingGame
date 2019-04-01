@@ -28,6 +28,7 @@ public class CodeInput : MonoBehaviour
 
     void Start()
     {
+        complete = true; 
         userCommands.Add("TANK.MOVEUP()");
         userCommands.Add("TANK.MOVEDOWN()");
         userCommands.Add("TANK.MOVELEFT()");
@@ -89,7 +90,7 @@ public class CodeInput : MonoBehaviour
             }
 
             functions.Clear(); 
-            SubmitCode(code);
+            StartCoroutine(SubmitCode(code));
             submitted = false; 
         }
     }
@@ -129,10 +130,14 @@ public class CodeInput : MonoBehaviour
         return returnCode.ToArray();
     }
 
-    void SubmitCode(string[] code)
+    IEnumerator SubmitCode(string[] code)
     {
         for (int i = 0; i < code.Length; i++)
         {
+            Debug.Log("Before");
+            yield return new WaitUntil(() => complete == true);
+
+            Debug.Log("After");
             if (code[i] == userCommands[0])
             {
                 CallMethods("TANK.MOVEUP()");
