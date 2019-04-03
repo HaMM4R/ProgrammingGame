@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         var Manager = GameObject.FindGameObjectWithTag("GameController");
+        GameObject.FindGameObjectWithTag("UITag").GetComponent<UI>().GetPlayer(this);
         grid = Manager.GetComponent<GridGeneration>();
         codeInput = Manager.GetComponent<CodeInput>();
 

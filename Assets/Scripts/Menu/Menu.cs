@@ -236,7 +236,7 @@ public class Menu : MonoBehaviour
         OptionsMenuResumePanel.SetActive(false);
         HUD.SetActive(false);
      
-        }
+     }
 
     void OnLevel1ContinueOne()
     {
