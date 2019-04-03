@@ -20,6 +20,13 @@ public class Menu : MonoBehaviour
     public GameObject Level1Tutorial1;
     public GameObject Level1Tutorial2;
     public GameObject Level1Tutorial3;
+    public GameObject Level2Tutorial1;
+    public GameObject Level2Tutorial2;
+    public GameObject Level2Tutorial3;
+    public GameObject Level3Tutorial1;
+    public GameObject Level3Tutorial2;
+    public GameObject Level3Tutorial3;
+
 
     public Button MainMenu;
     public Button OptionsMenuMain;
@@ -31,6 +38,12 @@ public class Menu : MonoBehaviour
     public Button Level1Cont1;
     public Button Level1Cont2;
     public Button Level1Cont3;
+    public Button Level2Cont1;
+    public Button Level2Cont2;
+    public Button Level2Cont3;
+    public Button Level3Cont1;
+    public Button Level3Cont2;
+    public Button Level3Cont3;
     public Button commandList;
     public Button instructions;
     public Button closeCommands;
@@ -50,6 +63,12 @@ public class Menu : MonoBehaviour
         Level1Tutorial1.SetActive(false);
         Level1Tutorial2.SetActive(false);
         Level1Tutorial3.SetActive(false);
+        Level2Tutorial1.SetActive(false);
+        Level2Tutorial2.SetActive(false);
+        Level2Tutorial3.SetActive(false);
+        Level3Tutorial1.SetActive(false);
+        Level3Tutorial2.SetActive(false);
+        Level3Tutorial3.SetActive(false);
         helpPanel.SetActive(false);
         HUD.SetActive(false);
 
@@ -66,6 +85,12 @@ public class Menu : MonoBehaviour
         Level1Cont1.onClick.AddListener(OnLevel1ContinueOne);
         Level1Cont2.onClick.AddListener(OnLevel1ContinueTwo);
         Level1Cont3.onClick.AddListener(OnLevel1ContinueThree);
+        Level2Cont1.onClick.AddListener(OnLevel2ContinueOne);
+        Level2Cont2.onClick.AddListener(OnLevel2ContinueTwo);
+        Level2Cont3.onClick.AddListener(OnLevel2ContinueThree);
+        Level3Cont1.onClick.AddListener(OnLevel2ContinueOne);
+        Level3Cont2.onClick.AddListener(OnLevel2ContinueTwo);
+        Level3Cont3.onClick.AddListener(OnLevel2ContinueThree);
     }
 
     void SetInstructions()
@@ -200,16 +225,17 @@ public class Menu : MonoBehaviour
     void PlayGameInstructions()
     {
         //pController.HasControl = false;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        inGamePanel.SetActive(true);
+        Level1Tutorial1.SetActive(true);
         GamePanel.SetActive(false);
         MainMenuPanel.SetActive(false);
         OptionsMenuMainPanel.SetActive(false);
         CanvasPanel.SetActive(false);
         ResumeGamePanel.SetActive(false);
         OptionsMenuResumePanel.SetActive(false);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        inGamePanel.SetActive(true);
-        Level1Tutorial1.SetActive(true);
         HUD.SetActive(false);
+     
         }
 
     void OnLevel1ContinueOne()
@@ -256,7 +282,95 @@ public class Menu : MonoBehaviour
 
         pController.HasControl = true;
     }
+    void OnLevel2ContinueOne()
+    {
+        GamePanel.SetActive(false);
+        MainMenuPanel.SetActive(false);
+        OptionsMenuMainPanel.SetActive(false);
+        CanvasPanel.SetActive(false);
+        ResumeGamePanel.SetActive(false);
+        OptionsMenuResumePanel.SetActive(false);
+        inGamePanel.SetActive(true);
+        Level2Tutorial1.SetActive(false);
+        Level2Tutorial2.SetActive(true);
+        HUD.SetActive(false);
+    }
 
+    void OnLevel2ContinueTwo()
+    {
+        GamePanel.SetActive(false);
+        MainMenuPanel.SetActive(false);
+        OptionsMenuMainPanel.SetActive(false);
+        CanvasPanel.SetActive(false);
+        ResumeGamePanel.SetActive(false);
+        OptionsMenuResumePanel.SetActive(false);
+        inGamePanel.SetActive(true);
+        Level2Tutorial2.SetActive(false);
+        Level2Tutorial3.SetActive(true);
+        HUD.SetActive(false);
+    }
+
+    void OnLevel2ContinueThree()
+    {
+        GamePanel.SetActive(false);
+        MainMenuPanel.SetActive(false);
+        OptionsMenuMainPanel.SetActive(false);
+        CanvasPanel.SetActive(false);
+        ResumeGamePanel.SetActive(false);
+        OptionsMenuResumePanel.SetActive(false);
+        inGamePanel.SetActive(false);
+        Level2Tutorial3.SetActive(false);
+        HUD.SetActive(true);
+        commandList.gameObject.SetActive(true);
+        instructions.gameObject.SetActive(true);
+
+        pController.HasControl = true;
+    }
+
+    void OnLevel3ContinueOne()
+    {
+        GamePanel.SetActive(false);
+        MainMenuPanel.SetActive(false);
+        OptionsMenuMainPanel.SetActive(false);
+        CanvasPanel.SetActive(false);
+        ResumeGamePanel.SetActive(false);
+        OptionsMenuResumePanel.SetActive(false);
+        inGamePanel.SetActive(true);
+        Level3Tutorial1.SetActive(false);
+        Level3Tutorial2.SetActive(true);
+        HUD.SetActive(false);
+    }
+
+    void OnLevel3ContinueTwo()
+    {
+        GamePanel.SetActive(false);
+        MainMenuPanel.SetActive(false);
+        OptionsMenuMainPanel.SetActive(false);
+        CanvasPanel.SetActive(false);
+        ResumeGamePanel.SetActive(false);
+        OptionsMenuResumePanel.SetActive(false);
+        inGamePanel.SetActive(true);
+        Level3Tutorial2.SetActive(false);
+        Level3Tutorial3.SetActive(true);
+        HUD.SetActive(false);
+    }
+
+    void OnLevel3ContinueThree()
+    {
+        GamePanel.SetActive(false);
+        MainMenuPanel.SetActive(false);
+        OptionsMenuMainPanel.SetActive(false);
+        CanvasPanel.SetActive(false);
+        ResumeGamePanel.SetActive(false);
+        OptionsMenuResumePanel.SetActive(false);
+        inGamePanel.SetActive(false);
+        Level3Tutorial3.SetActive(false);
+        HUD.SetActive(true);
+        commandList.gameObject.SetActive(true);
+        instructions.gameObject.SetActive(true);
+
+        pController.HasControl = true;
+    }
     void OpenCommands()
     {
         pController.HasControl = false;

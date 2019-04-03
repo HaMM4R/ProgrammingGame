@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3727438984836143232}
   - component: {fileID: 3727438984836143233}
   - component: {fileID: 3727438984836143358}
-  - component: {fileID: 3727438984836143359}
   m_Layer: 5
   m_Name: MainMenuUI
   m_TagString: Untagged
@@ -100,43 +99,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &3727438984836143359
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3727438984836143357}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cabbbdd2894e9c4383e615536c2a88c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GamePanel: {fileID: 3727438985180807811}
-  MainMenuPanel: {fileID: 3727438986157962577}
-  OptionsMenuMainPanel: {fileID: 3727438984842311547}
-  OptionsMenuResumePanel: {fileID: 3727438984842311547}
-  CanvasPanel: {fileID: 0}
-  ResumeGamePanel: {fileID: 0}
-  inGamePanel: {fileID: 0}
-  helpPanel: {fileID: 0}
-  HUD: {fileID: 0}
-  Level1Tutorial1: {fileID: 0}
-  Level1Tutorial2: {fileID: 0}
-  Level1Tutorial3: {fileID: 0}
-  MainMenu: {fileID: 0}
-  OptionsMenuMain: {fileID: 3727438986376526253}
-  OptionsMenuResume: {fileID: 0}
-  Play: {fileID: 3727438984978495011}
-  Quit: {fileID: 3727438986786355764}
-  Back: {fileID: 3727438986234337187}
-  Restart: {fileID: 0}
-  Level1Cont1: {fileID: 0}
-  Level1Cont2: {fileID: 0}
-  Level1Cont3: {fileID: 0}
-  commandList: {fileID: 0}
-  instructions: {fileID: 0}
-  closeCommands: {fileID: 0}
 --- !u!1 &3727438984842311547
 GameObject:
   m_ObjectHideFlags: 0

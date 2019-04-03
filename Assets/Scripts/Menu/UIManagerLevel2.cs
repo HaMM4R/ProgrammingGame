@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
+public class UIManagerLevel2 : MonoBehaviour
 {
     PlayerController pController;
 
@@ -11,13 +11,13 @@ public class UIManager : MonoBehaviour
     public GameObject helpPanel;
     public GameObject HUD;
 
-    public GameObject Level1Tutorial1;
-    public GameObject Level1Tutorial2;
-    public GameObject Level1Tutorial3;
+    public GameObject Level2Tutorial1;
+    public GameObject Level2Tutorial2;
+    public GameObject Level2Tutorial3;
 
-    public Button Level1Cont1;
-    public Button Level1Cont2;
-    public Button Level1Cont3;
+    public Button Level2Cont1;
+    public Button Level2Cont2;
+    public Button Level2Cont3;
 
     public Button commandList;
     public Button instructions;
@@ -28,9 +28,9 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         inGamePanel.SetActive(true);
-        Level1Tutorial1.SetActive(true);
-        Level1Tutorial2.SetActive(false);
-        Level1Tutorial3.SetActive(false);
+        Level2Tutorial1.SetActive(true);
+        Level2Tutorial2.SetActive(false);
+        Level2Tutorial3.SetActive(false);
         helpPanel.SetActive(false);
         HUD.SetActive(false);
 
@@ -40,9 +40,9 @@ public class UIManager : MonoBehaviour
         pController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         pController.HasControl = false;
 
-        Level1Cont1.onClick.AddListener(OnContinueOne);
-        Level1Cont2.onClick.AddListener(OnContinueTwo);
-        Level1Cont3.onClick.AddListener(OnContinueThree);
+        Level2Cont1.onClick.AddListener(OnContinueOne);
+        Level2Cont2.onClick.AddListener(OnContinueTwo);
+        Level2Cont3.onClick.AddListener(OnContinueThree);
         commandList.onClick.AddListener(OpenCommands);
         instructions.onClick.AddListener(SetInstructions);
         closeCommands.onClick.AddListener(CloseCommands);
@@ -53,25 +53,25 @@ public class UIManager : MonoBehaviour
         pController.HasControl = false;
         HUD.SetActive(false);
         inGamePanel.SetActive(true);
-        Level1Tutorial1.SetActive(true);
+        Level2Tutorial1.SetActive(true);
 
     }
 
     void OnContinueOne()
     {
-        Level1Tutorial1.SetActive(false);
-        Level1Tutorial2.SetActive(true);
+        Level2Tutorial1.SetActive(false);
+        Level2Tutorial2.SetActive(true);
     }
 
     void OnContinueTwo()
     {
-        Level1Tutorial2.SetActive(false);
-        Level1Tutorial3.SetActive(true);
+        Level2Tutorial2.SetActive(false);
+        Level2Tutorial3.SetActive(true);
     }
 
     void OnContinueThree()
     {
-        Level1Tutorial3.SetActive(false);
+        Level2Tutorial3.SetActive(false);
         inGamePanel.SetActive(false);
         HUD.SetActive(true);
         commandList.gameObject.SetActive(true);
