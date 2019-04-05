@@ -63,7 +63,7 @@ public class CodeInput : MonoBehaviour
 
     private void OnGUI()
     {
-        if (pController != null)
+        /*if (pController != null)
         {
             if (pController.HasControl)
             {
@@ -74,7 +74,13 @@ public class CodeInput : MonoBehaviour
                     submitted = true;
                 }
             }
-        }
+        }*/
+    }
+
+    public void GetCode(string c)
+    {
+        userCode = c;
+        submitted = true; 
     }
 
     void BufferCommands()

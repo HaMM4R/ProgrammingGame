@@ -14,6 +14,7 @@ public class UI : MonoBehaviour
     }
 
     PlayerController pController;
+
     public List<LevelTutorials> levelTutorials = new List<LevelTutorials>();
 
     [Header("Main Panels")]
@@ -40,17 +41,24 @@ public class UI : MonoBehaviour
     public GameObject tutorialUIText;
     public GameObject tutorialUIBackground; 
     public Button tutorialContinue;
-    public GameObject HUD;
     public GameObject helpPanel;
     public GameObject inGamePanel;
     public Button commandList;
     public Button instructions;
     public Button CloseCommands;
 
+    [Header("Code Input Panels")]
+    public GameObject codeInputHolder;
+    public InputField codeRecieve;
+    public Button submitCode;
+    public Button closeCodeWindow;
+    public Button openCodeWindow; 
+
 
     int tutTextCount;
     int level;
     GridGeneration grid;
+    CodeInput code;
 
     Text uiText;
 
@@ -81,10 +89,10 @@ public class UI : MonoBehaviour
         optionsMenu.SetActive(false);
         optionsmenupanel.SetActive(false);
         helpPanel.SetActive(false);
-        HUD.SetActive(false);
         uiText = tutorialUIText.GetComponent<Text>();
         commandList.gameObject.SetActive(false);
         instructions.gameObject.SetActive(false);
+        codeInputHolder.SetActive(false);
 
         tutorialContinue.onClick.AddListener(ChangeTutorialText);
         optionsButton.onClick.AddListener(Options);
@@ -94,12 +102,19 @@ public class UI : MonoBehaviour
         commandList.onClick.AddListener(OpenCommands);
         instructions.onClick.AddListener(SetupTutorialPanel);
         CloseCommands.onClick.AddListener(closeCommands);
+        openCodeWindow.onClick.AddListener(OpenCodeWindow);
+        closeCodeWindow.onClick.AddListener(CloseCodeWindow);
+        submitCode.onClick.AddListener(SubmitCommands);
     }
 
     void SetupTutorialPanel()
     {
         if (GameObject.FindGameObjectWithTag("GameController") != null)
-            grid = GameObject.FindGameObjectWithTag("GameController").GetComponent<GridGeneration>();
+        {
+            var manager = GameObject.FindGameObjectWithTag("GameController");
+            grid = manager.GetComponent<GridGeneration>();
+            code = manager.GetComponent<CodeInput>();
+        }
 
         if (grid != null)
             level = grid.level;
@@ -141,30 +156,12 @@ public class UI : MonoBehaviour
             tutorialUIHolder.SetActive(false);
             tutorialUIBackground.SetActive(false);
             tutorialUIText.SetActive(false);
-            HUD.SetActive(true);
             commandList.gameObject.SetActive(true);
+            openCodeWindow.gameObject.SetActive(true);
             instructions.gameObject.SetActive(true);
         }
     }
-
-
-    //IEnumerator LoadingLevel()
-    //{
-    //    yield return new WaitUntil(isLevelLoaded);
-    //    Debug.Log("LoadingLevel");
-    //}
-
-    //public bool isLevelLoaded()
-    //{
-    //    if (counter > 0)
-    //    {
-    //        return false;
-    //    }
-    //    else
-    //    {
-    //        return true;
-    //    }
-    //}
+    
     void PlayGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
@@ -172,6 +169,19 @@ public class UI : MonoBehaviour
         //pController.HasControl = false;
 
     }
+
+    void OpenCodeWindow()
+    {
+        codeInputHolder.SetActive(true);
+        openCodeWindow.gameObject.SetActive(false);
+    }
+
+    void CloseCodeWindow()
+    {
+        codeInputHolder.SetActive(false);
+        openCodeWindow.gameObject.SetActive(true);
+    }
+
     void Options()
     {
         pauseMenu.SetActive(false);
@@ -187,6 +197,7 @@ public class UI : MonoBehaviour
         optionsMenu.SetActive(true);
 
     }
+
     void QuitGame()
     {
         Application.Quit();
@@ -215,6 +226,7 @@ public class UI : MonoBehaviour
         Debug.Log("OnSceneLoaded: " + scene.name);
         if(scene.name != "Menu")
             SetupTutorialPanel();
+        codeRecieve.text = "";
     }
     void OnDisable()
     {
@@ -226,14 +238,26 @@ public class UI : MonoBehaviour
     {
         pController.HasControl = false;
         helpPanel.SetActive(true);
-        HUD.SetActive(false);
+        commandList.gameObject.SetActive(false);
+        openCodeWindow.gameObject.SetActive(false);
+        instructions.gameObject.SetActive(false);
+    }
+
+    void SubmitCommands()
+    {
+        code.GetCode(codeRecieve.text);
+        pController.HasControl = true;
+        codeInputHolder.SetActive(false);
+        openCodeWindow.gameObject.SetActive(true);
     }
 
     void closeCommands()
     {
         pController.HasControl = true;
         helpPanel.SetActive(false);
-        HUD.SetActive(true);
+        commandList.gameObject.SetActive(true);
+        openCodeWindow.gameObject.SetActive(true);
+        instructions.gameObject.SetActive(true);
     }
 }
 
