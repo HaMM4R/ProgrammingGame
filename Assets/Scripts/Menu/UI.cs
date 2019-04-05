@@ -157,7 +157,8 @@ public class UI : MonoBehaviour
             tutorialUIBackground.SetActive(false);
             tutorialUIText.SetActive(false);
             commandList.gameObject.SetActive(true);
-            openCodeWindow.gameObject.SetActive(true);
+            if (!codeInputHolder.activeInHierarchy)
+                openCodeWindow.gameObject.SetActive(true);
             instructions.gameObject.SetActive(true);
         }
     }
@@ -248,7 +249,8 @@ public class UI : MonoBehaviour
         code.GetCode(codeRecieve.text);
         pController.HasControl = true;
         codeInputHolder.SetActive(false);
-        openCodeWindow.gameObject.SetActive(true);
+        if(!codeInputHolder.activeInHierarchy)
+            openCodeWindow.gameObject.SetActive(true);
     }
 
     void closeCommands()
@@ -256,7 +258,8 @@ public class UI : MonoBehaviour
         pController.HasControl = true;
         helpPanel.SetActive(false);
         commandList.gameObject.SetActive(true);
-        openCodeWindow.gameObject.SetActive(true);
+        if (!codeInputHolder.activeInHierarchy)
+            openCodeWindow.gameObject.SetActive(true);
         instructions.gameObject.SetActive(true);
     }
 }
