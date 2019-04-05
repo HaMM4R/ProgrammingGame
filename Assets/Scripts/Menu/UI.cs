@@ -107,7 +107,7 @@ public class UI : MonoBehaviour
         tutTextCount = 0;
         pauseMenu.SetActive(false);
         instructionsMenu.SetActive(false);
-        inGameMenu.SetActive(true);
+        inGameMenu.SetActive(false);
         tutorialUIHolder.SetActive(true);
         tutorialUIBackground.SetActive(true);
         tutorialUIText.SetActive(true);
