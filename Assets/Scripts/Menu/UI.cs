@@ -13,8 +13,6 @@ public class UI : MonoBehaviour
         public List<string> tutorialText;
     }
 
-
-
     PlayerController pController;
     public List<LevelTutorials> levelTutorials = new List<LevelTutorials>();
 
@@ -40,6 +38,7 @@ public class UI : MonoBehaviour
     [Header("Tutorial Panels")]
     public GameObject tutorialUIHolder;
     public GameObject tutorialUIText;
+    public GameObject tutorialUIBackground; 
     public Button tutorialContinue;
     public GameObject HUD;
     public GameObject helpPanel;
@@ -76,6 +75,7 @@ public class UI : MonoBehaviour
         instructionsMenu.SetActive(false);
         tutorialUIHolder.SetActive(false);
         tutorialUIText.SetActive(false);
+        tutorialUIBackground.SetActive(false);
         mainMenu.SetActive(true);
         mainmenuPanel.SetActive(true);
         optionsMenu.SetActive(false);
@@ -85,14 +85,14 @@ public class UI : MonoBehaviour
         uiText = tutorialUIText.GetComponent<Text>();
         commandList.gameObject.SetActive(false);
         instructions.gameObject.SetActive(false);
-      //  SetupTutorialPanel();
+
         tutorialContinue.onClick.AddListener(ChangeTutorialText);
         optionsButton.onClick.AddListener(Options);
         Play.onClick.AddListener(PlayGame);
         Quit.onClick.AddListener(QuitGame);
         Back.onClick.AddListener(BackButton);
         commandList.onClick.AddListener(OpenCommands);
-        instructions.onClick.AddListener(Instructions);
+        instructions.onClick.AddListener(SetupTutorialPanel);
         CloseCommands.onClick.AddListener(closeCommands);
     }
 
@@ -104,10 +104,12 @@ public class UI : MonoBehaviour
         if (grid != null)
             level = grid.level;
 
+        tutTextCount = 0;
         pauseMenu.SetActive(false);
         instructionsMenu.SetActive(false);
         inGameMenu.SetActive(true);
         tutorialUIHolder.SetActive(true);
+        tutorialUIBackground.SetActive(true);
         tutorialUIText.SetActive(true);
         mainMenu.SetActive(false);
         mainmenuPanel.SetActive(true);
@@ -126,6 +128,8 @@ public class UI : MonoBehaviour
     {
         if (tutTextCount < levelTutorials[level].tutorialText.Count)
         {
+            if(pController != null)
+                pController.HasControl = false;
             tutTextCount++;
             uiText.text = levelTutorials[level].tutorialText[tutTextCount - 1];
         }
@@ -135,6 +139,7 @@ public class UI : MonoBehaviour
             inGameMenu.SetActive(true);
             instructionsMenu.SetActive(false);
             tutorialUIHolder.SetActive(false);
+            tutorialUIBackground.SetActive(false);
             tutorialUIText.SetActive(false);
             HUD.SetActive(true);
             commandList.gameObject.SetActive(true);
@@ -215,20 +220,6 @@ public class UI : MonoBehaviour
     {
         Debug.Log("OnDisable");
         SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    void Instructions()
-    {
-        pauseMenu.SetActive(false);
-        instructionsMenu.SetActive(false);
-        inGameMenu.SetActive(false);
-        tutorialUIHolder.SetActive(true);
-        tutorialUIText.SetActive(true);
-        mainMenu.SetActive(false);
-        mainmenuPanel.SetActive(true);
-        optionsMenu.SetActive(false);
-        optionsmenupanel.SetActive(false);
-        ChangeTutorialText();
     }
 
     void OpenCommands()
