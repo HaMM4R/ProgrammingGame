@@ -58,7 +58,8 @@ public class UI : MonoBehaviour
 
     [Header("IngameUI")]
     public Text health;
-    public Text ammo; 
+    public Text ammo;
+    public Button restart; 
 
 
     int tutTextCount;
@@ -66,11 +67,14 @@ public class UI : MonoBehaviour
     GridGeneration grid;
     CodeInput code;
 
+    bool playerDead; 
+
     Text uiText;
 
     // Start is called before the first frame update
     void Start()
     {
+        playerDead = false; 
         DontDestroyOnLoad(this);
         Setup();
     }
@@ -78,7 +82,23 @@ public class UI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (pHealth.playerHealth <= 0 && !playerDead)
+        {
+            Dead(); 
+        }
+
         UpdateHUD(); 
+    }
+
+    void Dead()
+    {
+        playerDead = true;
+        HUD.SetActive(false);
+        commandList.gameObject.SetActive(false);
+        instructions.gameObject.SetActive(false);
+        openCodeWindow.gameObject.SetActive(false);
+        codeInputHolder.SetActive(false);
+        restart.gameObject.SetActive(true); 
     }
 
     void UpdateHUD()
@@ -93,6 +113,7 @@ public class UI : MonoBehaviour
     {
         tutTextCount = 0;
         pauseMenu.SetActive(false);
+        restart.gameObject.SetActive(false);
         inGameMenu.SetActive(false);
         instructionsMenu.SetActive(false);
         tutorialUIHolder.SetActive(false);
@@ -120,6 +141,12 @@ public class UI : MonoBehaviour
         openCodeWindow.onClick.AddListener(OpenCodeWindow);
         closeCodeWindow.onClick.AddListener(CloseCodeWindow);
         submitCode.onClick.AddListener(SubmitCommands);
+        restart.onClick.AddListener(Respawn);
+    }
+
+    void Respawn()
+    {
+        Application.LoadLevel(Application.loadedLevel);
     }
 
     void SetupTutorialPanel()
@@ -145,6 +172,7 @@ public class UI : MonoBehaviour
         mainmenuPanel.SetActive(true);
         optionsMenu.SetActive(false);
         optionsmenupanel.SetActive(false);
+        restart.gameObject.SetActive(false);
         ChangeTutorialText();
     }
 
