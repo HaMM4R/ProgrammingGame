@@ -33,7 +33,7 @@ public class CodeInput : MonoBehaviour
         userCommands.Add("TANK.MOVEDOWN()");
         userCommands.Add("TANK.MOVELEFT()");
         userCommands.Add("TANK.MOVERIGHT()");
-        userCommands.Add("TANK.MOVEROTATE()");
+        userCommands.Add("TANK.ROTATE()");
         userCommands.Add("TANK.FIRE()");
         userCommands.Add("FOR");
         userCommands.Add("INCREMENTBY");
