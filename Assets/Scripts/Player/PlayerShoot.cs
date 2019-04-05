@@ -30,8 +30,4 @@ public class PlayerShoot : MonoBehaviour
         }
     }
     
-    void OnGUI()
-    {
-        GUI.Box(new Rect(Screen.width / 4 + 15, 10, 100,22), "Ammo: " + ammo.ToString());
-    }
 }

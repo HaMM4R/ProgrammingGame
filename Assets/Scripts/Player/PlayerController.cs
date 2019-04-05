@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     private CodeInput codeInput; 
 
     private PlayerShoot pShoot;
+    private PlayerHealth pHealth; 
     public CameraManager camManager; 
 
     int xMax;
@@ -30,12 +31,14 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         var Manager = GameObject.FindGameObjectWithTag("GameController");
-        GameObject.FindGameObjectWithTag("UITag").GetComponent<UI>().GetPlayer(this);
         grid = Manager.GetComponent<GridGeneration>();
         codeInput = Manager.GetComponent<CodeInput>();
 
         camManager = GetComponent<CameraManager>();
-        pShoot = GetComponent<PlayerShoot>(); 
+        pShoot = GetComponent<PlayerShoot>();
+        pHealth = GetComponent<PlayerHealth>();
+
+        GameObject.FindGameObjectWithTag("UITag").GetComponent<UI>().GetPlayer(this, pShoot, pHealth);
 
         xMax = grid.numberOfXGrid;
         yMax = grid.numberOfYGrid; 

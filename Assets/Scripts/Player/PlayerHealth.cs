@@ -32,9 +32,4 @@ public class PlayerHealth : MonoBehaviour
         Instantiate(explosion, transform.position, transform.rotation);
         Destroy(gameObject);
     }
-        
-    void OnGUI()
-    {
-        GUI.Box(new Rect(Screen.width / 4 + 15, 38, 100,22), "Health: " + playerHealth.ToString());
-    }
 }

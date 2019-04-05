@@ -14,6 +14,8 @@ public class UI : MonoBehaviour
     }
 
     PlayerController pController;
+    public PlayerShoot pShoot;
+    public PlayerHealth pHealth; 
 
     public List<LevelTutorials> levelTutorials = new List<LevelTutorials>();
 
@@ -22,7 +24,7 @@ public class UI : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject inGameMenu;
     public GameObject instructionsMenu;
-
+    public GameObject HUD; 
 
 
     [Header("Main menu Panels")]
@@ -52,7 +54,11 @@ public class UI : MonoBehaviour
     public InputField codeRecieve;
     public Button submitCode;
     public Button closeCodeWindow;
-    public Button openCodeWindow; 
+    public Button openCodeWindow;
+
+    [Header("IngameUI")]
+    public Text health;
+    public Text ammo; 
 
 
     int tutTextCount;
@@ -72,7 +78,15 @@ public class UI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-  
+        UpdateHUD(); 
+    }
+
+    void UpdateHUD()
+    {
+        if(pHealth != null)
+            health.text = "Health: " + pHealth.playerHealth.ToString();
+        if(pShoot != null)
+            ammo.text = "Ammo: " + pShoot.Ammo.ToString(); 
     }
 
     void Setup()
@@ -93,6 +107,7 @@ public class UI : MonoBehaviour
         commandList.gameObject.SetActive(false);
         instructions.gameObject.SetActive(false);
         codeInputHolder.SetActive(false);
+        HUD.SetActive(false); 
 
         tutorialContinue.onClick.AddListener(ChangeTutorialText);
         optionsButton.onClick.AddListener(Options);
@@ -133,9 +148,11 @@ public class UI : MonoBehaviour
         ChangeTutorialText();
     }
 
-    public void GetPlayer(PlayerController p)
+    public void GetPlayer(PlayerController p, PlayerShoot pS, PlayerHealth pH)
     {
         pController = p;
+        pShoot = pS;
+        pHealth = pH; 
         pController.HasControl = false;
     }
 
@@ -157,6 +174,7 @@ public class UI : MonoBehaviour
             tutorialUIBackground.SetActive(false);
             tutorialUIText.SetActive(false);
             commandList.gameObject.SetActive(true);
+            HUD.SetActive(true);
             if (!codeInputHolder.activeInHierarchy)
                 openCodeWindow.gameObject.SetActive(true);
             instructions.gameObject.SetActive(true);
@@ -174,12 +192,14 @@ public class UI : MonoBehaviour
     void OpenCodeWindow()
     {
         codeInputHolder.SetActive(true);
+        HUD.SetActive(false);
         openCodeWindow.gameObject.SetActive(false);
     }
 
     void CloseCodeWindow()
     {
         codeInputHolder.SetActive(false);
+        HUD.SetActive(true);
         openCodeWindow.gameObject.SetActive(true);
     }
 
@@ -242,6 +262,7 @@ public class UI : MonoBehaviour
         commandList.gameObject.SetActive(false);
         openCodeWindow.gameObject.SetActive(false);
         instructions.gameObject.SetActive(false);
+        HUD.SetActive(false);
     }
 
     void SubmitCommands()
@@ -249,7 +270,8 @@ public class UI : MonoBehaviour
         code.GetCode(codeRecieve.text);
         pController.HasControl = true;
         codeInputHolder.SetActive(false);
-        if(!codeInputHolder.activeInHierarchy)
+        HUD.SetActive(true);
+        if (!codeInputHolder.activeInHierarchy)
             openCodeWindow.gameObject.SetActive(true);
     }
 
@@ -261,6 +283,7 @@ public class UI : MonoBehaviour
         if (!codeInputHolder.activeInHierarchy)
             openCodeWindow.gameObject.SetActive(true);
         instructions.gameObject.SetActive(true);
+        HUD.SetActive(true);
     }
 }
 
