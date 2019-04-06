@@ -18,6 +18,7 @@ public class UI : MonoBehaviour
     public PlayerHealth pHealth; 
 
     public List<LevelTutorials> levelTutorials = new List<LevelTutorials>();
+    public List<LevelTutorials> levelHints = new List<LevelTutorials>();
 
     [Header("Main Panels")]
     public GameObject mainMenu;
