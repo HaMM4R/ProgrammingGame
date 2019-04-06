@@ -22,13 +22,18 @@ public class CodeInput : MonoBehaviour
     string userCode;
 
     bool complete;
+    bool failed;
     bool submitted;
 
     int commandCounter;
 
+    public bool instructionComplete { get { return complete; } set { complete = value; } }
+    public bool playerFailed { get { return failed; } set { failed = value; } }
+
     void Start()
     {
-        complete = true; 
+        complete = true;
+        failed = false; 
         userCommands.Add("TANK.MOVEUP()");
         userCommands.Add("TANK.MOVEDOWN()");
         userCommands.Add("TANK.MOVELEFT()");
@@ -98,10 +103,7 @@ public class CodeInput : MonoBehaviour
             StartCoroutine(SubmitCode(code));
             submitted = false; 
         }
-    }
-
-    public bool instructionComplete { get { return complete; } set { complete = value; } } 
-    
+    }    
 
     string[] SplitCode(string code)
     {
@@ -200,6 +202,8 @@ public class CodeInput : MonoBehaviour
                 Debug.Log("INVALID COMMAND");
             }*/
         }
+
+        failed = true; 
     }
 
     void For(string[] code, int index)

@@ -82,8 +82,8 @@ public class UI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(pHealth != null)
-            if (pHealth.playerHealth <= 0 && !playerDead)
+        if(pHealth != null && code != null)
+            if ((pHealth.playerHealth <= 0 && !playerDead) || (code.playerFailed && code.instructionComplete))
                 Dead(); 
         
 
