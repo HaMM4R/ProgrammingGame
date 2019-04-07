@@ -14,8 +14,8 @@ public class UI : MonoBehaviour
     }
 
     PlayerController pController;
-    public PlayerShoot pShoot;
-    public PlayerHealth pHealth; 
+    PlayerShoot pShoot;
+    PlayerHealth pHealth; 
 
     public List<LevelTutorials> levelTutorials = new List<LevelTutorials>();
     public List<LevelTutorials> levelHints = new List<LevelTutorials>();
@@ -60,7 +60,11 @@ public class UI : MonoBehaviour
     [Header("IngameUI")]
     public Text health;
     public Text ammo;
-    public Button restart; 
+    public Button restart;
+
+    [Header("HintsUI")]
+    public GameObject hints;
+    public Text hintText; 
 
 
     int tutTextCount;
@@ -68,7 +72,9 @@ public class UI : MonoBehaviour
     GridGeneration grid;
     CodeInput code;
 
-    bool playerDead; 
+    bool playerDead;
+
+    int hintsCount = 0; 
 
     Text uiText;
 
@@ -84,8 +90,8 @@ public class UI : MonoBehaviour
     void Update()
     {
         if(pHealth != null && code != null)
-            if ((pHealth.playerHealth <= 0 && !playerDead) || (code.playerFailed && code.instructionComplete))
-                Dead(); 
+            if ((pHealth.playerHealth <= 0 && !playerDead) || (code.playerFailed && code.instructionComplete && !playerDead))
+                Dead();
         
 
         UpdateHUD(); 
@@ -99,7 +105,12 @@ public class UI : MonoBehaviour
         instructions.gameObject.SetActive(false);
         openCodeWindow.gameObject.SetActive(false);
         codeInputHolder.SetActive(false);
-        restart.gameObject.SetActive(true); 
+        restart.gameObject.SetActive(true);
+        hints.SetActive(true);
+        hintText.text = levelHints[level].tutorialText[hintsCount];
+
+        if(hintsCount < levelHints[level].tutorialText.Count - 1)
+            hintsCount++;
     }
 
     void UpdateHUD()
@@ -129,7 +140,8 @@ public class UI : MonoBehaviour
         commandList.gameObject.SetActive(false);
         instructions.gameObject.SetActive(false);
         codeInputHolder.SetActive(false);
-        HUD.SetActive(false); 
+        HUD.SetActive(false);
+        hints.SetActive(false);
 
         tutorialContinue.onClick.AddListener(ChangeTutorialText);
         optionsButton.onClick.AddListener(Options);
@@ -162,6 +174,7 @@ public class UI : MonoBehaviour
         if (grid != null)
             level = grid.level;
 
+        playerDead = false;
         tutTextCount = 0;
         pauseMenu.SetActive(false);
         instructionsMenu.SetActive(false);
@@ -174,6 +187,7 @@ public class UI : MonoBehaviour
         optionsMenu.SetActive(false);
         optionsmenupanel.SetActive(false);
         restart.gameObject.SetActive(false);
+        hints.SetActive(false);
         ChangeTutorialText();
     }
 

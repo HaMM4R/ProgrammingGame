@@ -46,7 +46,9 @@ public class GridGeneration : MonoBehaviour
     public int startingTileAmmo; 
     private TileType[,] tiles;
 
-    GameObject Player; 
+    GameObject Player;
+
+    bool levelFinished; 
 
     void Start()
     {

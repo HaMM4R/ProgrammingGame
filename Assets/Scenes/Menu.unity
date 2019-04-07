@@ -4923,8 +4923,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f58bdfe94930f3c4691332ad5ae3f5e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pShoot: {fileID: 0}
-  pHealth: {fileID: 0}
   levelTutorials:
   - tutorialText:
     - Test
@@ -4938,7 +4936,13 @@ MonoBehaviour:
   - tutorialText:
     - 124214
     - 125125
-  levelHints: []
+  levelHints:
+  - tutorialText:
+    - Try using the tank.move_() commands, use multiple to get to the goal!
+    - Try tank.moveright() \r\n tank.moveup() \r\n tank.moveup() \n tank.moveleft()
+  - tutorialText:
+    - Try using a for loop to complete the level!
+    - Try typing for 1 < 10 INCREMENT 1 tank.moveup() endfor
   mainMenu: {fileID: 1955803195}
   pauseMenu: {fileID: 912571933}
   inGameMenu: {fileID: 1051657463}
@@ -4969,6 +4973,8 @@ MonoBehaviour:
   health: {fileID: 752576263}
   ammo: {fileID: 1005343109}
   restart: {fileID: 1110692676}
+  hints: {fileID: 1785811049}
+  hintText: {fileID: 1234302669}
 --- !u!114 &1414310590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5830,7 +5836,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0.4627451, g: 0.4627451, b: 0.4627451, a: 0.75686276}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -6198,7 +6204,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: WELCOME!
+  m_Text: HINTS
 --- !u!222 &1930674603
 CanvasRenderer:
   m_ObjectHideFlags: 0
