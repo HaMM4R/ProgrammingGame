@@ -5021,8 +5021,23 @@ MonoBehaviour:
     - 'The way this is written in the game is:'
     - FOR _ < _ INC _ replacing the _ with the numbers as previously mentioned
   - tutorialText:
-    - 124214
-    - 125125
+    - In this level we're going to go over functions
+    - Functions allow for programmers to create a block of code that can be reused
+      many times
+    - Functions can be written and called at a later stage in the program
+    - This means you can write a block of code at the beginning of the program, then
+      use it wherever required
+    - This is done using the FUNCTION keyword, followed by the a function name, this
+      can be whatever the programmer wants it to be but usually relates to the functionality
+      of the function
+    - An example would be FUNCTION attack, followed by the commands you want in the
+      function, attack being the name of the function
+    - Once you have written all the commands you want in the function, end it with
+      ENDFUNCTION
+    - Try and create a function that can be called at the end of the program to destroy
+      the enemy tank thats blocking your way
+    - tank.fire() will allow the tank to shoot
+    - Good luck, and don't forget to open up the command list if you get stuck!
   levelHints:
   - tutorialText:
     - Try using the tank.move_() commands, use multiple to get to the goal!
@@ -5030,6 +5045,11 @@ MonoBehaviour:
       order and see what happens!
   - tutorialText:
     - Try using a for loop to complete the level!
+    - Try typing for 1 < 10 INC 1 tank.moveup() endfor
+  - tutorialText:
+    - Try using loops to navigate towards the ammo
+    - Once you've reached the end of the ammo space, try using a function to move
+      down and attack the enemy tank
     - Try typing for 1 < 10 INC 1 tank.moveup() endfor
   mainMenu: {fileID: 1955803195}
   pauseMenu: {fileID: 912571933}
