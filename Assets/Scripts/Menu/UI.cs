@@ -15,7 +15,9 @@ public class UI : MonoBehaviour
 
     PlayerController pController;
     PlayerShoot pShoot;
-    PlayerHealth pHealth; 
+    PlayerHealth pHealth;
+
+    string currentLevel; 
 
     public List<LevelTutorials> levelTutorials = new List<LevelTutorials>();
     public List<LevelTutorials> levelHints = new List<LevelTutorials>();
@@ -290,6 +292,13 @@ public class UI : MonoBehaviour
         Debug.Log("OnSceneLoaded: " + scene.name);
         if(scene.name != "Menu")
             SetupTutorialPanel();
+
+        if (currentLevel != scene.name)
+        {
+            currentLevel = scene.name;
+            hintsCount = 0;
+        }
+
         codeRecieve.text = "";
     }
     void OnDisable()
