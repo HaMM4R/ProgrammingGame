@@ -23,6 +23,8 @@ public class UI : MonoBehaviour
     public List<LevelTutorials> levelTutorials = new List<LevelTutorials>();
     public List<LevelTutorials> levelHints = new List<LevelTutorials>();
 
+    public List<int> levelAttempts = new List<int>(); 
+
     [Header("Main Panels")]
     public GameObject mainMenu;
     public GameObject pauseMenu;
@@ -123,8 +125,9 @@ public class UI : MonoBehaviour
             health.text = "Health: " + pHealth.playerHealth.ToString();
         if(pShoot != null)
             ammo.text = "Ammo: " + pShoot.Ammo.ToString();
-
-        attempts.text = "Level attempted " + (numberOfAttempts - 1) + " times.";
+        
+        if(grid != null)
+            attempts.text = "Level attempted " + (levelAttempts[grid.level] - 1) + " times.";
     }
 
     void Setup()
@@ -308,21 +311,25 @@ public class UI : MonoBehaviour
     }
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        if (currentLevel != scene.name)
+        {
+            currentLevel = scene.name;
+            hintsCount = 0;
+            numberOfAttempts = 0;
+            levelAttempts.Add(0);
+        }
+
         Debug.Log("OnSceneLoaded: " + scene.name);
         if (scene.name != "Menu" && numberOfAttempts == 0)
             SetupTutorialPanel();
         else
             CloseTutorial();
 
-        if (currentLevel != scene.name)
+        if (currentLevel == scene.name && scene.name != "Menu")
         {
-            currentLevel = scene.name;
-            hintsCount = 0;
-            numberOfAttempts = 0;
-        }
-
-        if(currentLevel == scene.name && scene.name != "Menu")
             numberOfAttempts++;
+            levelAttempts[grid.level]++; 
+        }
 
         codeRecieve.text = "";
     }
