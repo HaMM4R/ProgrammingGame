@@ -17,7 +17,8 @@ public class UI : MonoBehaviour
     PlayerShoot pShoot;
     PlayerHealth pHealth;
 
-    string currentLevel; 
+    string currentLevel;
+    int numberOfAttempts; 
 
     public List<LevelTutorials> levelTutorials = new List<LevelTutorials>();
     public List<LevelTutorials> levelHints = new List<LevelTutorials>();
@@ -63,6 +64,7 @@ public class UI : MonoBehaviour
     public Text health;
     public Text ammo;
     public Button restart;
+    public Text attempts;
 
     [Header("HintsUI")]
     public GameObject hints;
@@ -120,7 +122,9 @@ public class UI : MonoBehaviour
         if(pHealth != null)
             health.text = "Health: " + pHealth.playerHealth.ToString();
         if(pShoot != null)
-            ammo.text = "Ammo: " + pShoot.Ammo.ToString(); 
+            ammo.text = "Ammo: " + pShoot.Ammo.ToString();
+
+        attempts.text = "Level attempted " + (numberOfAttempts - 1) + " times.";
     }
 
     void Setup()
@@ -297,7 +301,11 @@ public class UI : MonoBehaviour
         {
             currentLevel = scene.name;
             hintsCount = 0;
+            numberOfAttempts = 0;
         }
+
+        if(currentLevel == scene.name && scene.name != "Menu")
+            numberOfAttempts++;
 
         codeRecieve.text = "";
     }
