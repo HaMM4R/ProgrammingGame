@@ -5009,11 +5009,17 @@ MonoBehaviour:
       to complete the level
     - Good luck!
   - tutorialText:
-    - 124214
-    - 125125
-    - 12516
-    - 2352
-    - 34734
+    - Get ready to learn loops!
+    - Looping is a great way to run a set of commands multiple times without having
+      to repeat lines of code
+    - 'This specific kind of loop is called a for loop '
+    - These kind of loops need 3 numbers
+    - The first is the starting number, this number will count up until it reaches
+      the next number you enter
+    - The last number is the incrementer, this is how much will be added to the initial
+      number to reach the goal every time
+    - 'The way this is written in the game is:'
+    - FOR _ < _ INC _ replacing the _ with the numbers as previously mentioned
   - tutorialText:
     - 124214
     - 125125
@@ -5024,7 +5030,7 @@ MonoBehaviour:
       order and see what happens!
   - tutorialText:
     - Try using a for loop to complete the level!
-    - Try typing for 1 < 10 INCREMENT 1 tank.moveup() endfor
+    - Try typing for 1 < 10 INC 1 tank.moveup() endfor
   mainMenu: {fileID: 1955803195}
   pauseMenu: {fileID: 912571933}
   inGameMenu: {fileID: 1051657463}
