@@ -25,7 +25,8 @@ public class CodeInput : MonoBehaviour
     bool failed;
     bool submitted;
 
-    int commandCounter;
+    bool allCommandsComplete;
+    bool allC; 
 
     public bool instructionComplete { get { return complete; } set { complete = value; } }
     public bool playerFailed { get { return failed; } set { failed = value; } }
@@ -33,7 +34,9 @@ public class CodeInput : MonoBehaviour
     void Start()
     {
         complete = true;
-        failed = false; 
+        failed = false;
+        allCommandsComplete = false;
+        allC = false; 
         userCommands.Add("TANK.MOVEUP()");
         userCommands.Add("TANK.MOVEDOWN()");
         userCommands.Add("TANK.MOVELEFT()");
@@ -51,13 +54,12 @@ public class CodeInput : MonoBehaviour
         userCommands.Add("ENDFOR");
         userCommands.Add("FUNCTION");
         userCommands.Add("ENDFUNCTION");
-
-        commandCounter = 0; 
     }
 
     void Update()
     {
-        BufferCommands(); 
+        BufferCommands();
+        PlayerFail(); 
     }
 
     public void GetPlayer(GameObject p)
@@ -66,26 +68,16 @@ public class CodeInput : MonoBehaviour
         pController = p.GetComponent<PlayerController>(); 
     }
 
-    private void OnGUI()
-    {
-        /*if (pController != null)
-        {
-            if (pController.HasControl)
-            {
-                userCode = GUI.TextArea(new Rect(10, 10, Screen.width / 4, Screen.height - 100), userCode);
-
-                if (GUI.Button(new Rect(10, Screen.height - 80, Screen.width / 4, 60), "Submit"))
-                {
-                    submitted = true;
-                }
-            }
-        }*/
-    }
-
     public void GetCode(string c)
     {
         userCode = c;
         submitted = true; 
+    }
+
+    void PlayerFail()
+    {
+        if(complete && allCommandsComplete && allC)
+            failed = true; 
     }
 
     void BufferCommands()
@@ -141,10 +133,8 @@ public class CodeInput : MonoBehaviour
     {
         for (int i = 0; i < code.Length; i++)
         {
-            Debug.Log("Before");
             yield return new WaitUntil(() => complete == true);
-
-            Debug.Log("After");
+            
             if (code[i] == userCommands[0])
             {
                 CallMethods("TANK.MOVEUP()");
@@ -189,21 +179,18 @@ public class CodeInput : MonoBehaviour
 
             for(int j = 0; j < functions.Count; j++)
             {
-                Debug.Log(j);
                 if(code[i] == functions[j].name)
                 {
-                    Debug.Log(functions[j].name);
                     StartCoroutine(CallFunction(j));
                 }
             }
-
-            /*else
-            {
-                Debug.Log("INVALID COMMAND");
-            }*/
         }
 
-        failed = true; 
+        if(functions.Count == 0)
+            allC = true;
+        
+        yield return new WaitUntil(() => allC == true);
+        allCommandsComplete = true;
     }
 
     void For(string[] code, int index)
@@ -277,6 +264,8 @@ public class CodeInput : MonoBehaviour
             else
                 CallMethods(functions[j].funcCommands[x]);
         }
+        
+        allC = true;
     }
 
     void CallMethods(string methodToCall)

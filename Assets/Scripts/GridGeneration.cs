@@ -114,8 +114,6 @@ public class GridGeneration : MonoBehaviour
     //Sets type of tile ready for grid generation 
     void ChooseTileType()
     {
-        Debug.Log(numberOfXGrid);
-        Debug.Log(numberOfYGrid);
         tiles = new TileType[numberOfXGrid, numberOfYGrid];
 
         if(level == 0)
@@ -335,8 +333,8 @@ public class GridGeneration : MonoBehaviour
             introTrace.Add(startingTile);
         }
 
-        var c = player.gameObject.GetComponent<CameraManager>();
-        c.StartCinematic(); 
+        //var c = player.gameObject.GetComponent<CameraManager>();
+        //c.StartCinematic(); 
     }
 
     void SpawnAmmo()
