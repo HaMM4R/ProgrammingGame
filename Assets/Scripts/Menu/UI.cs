@@ -202,32 +202,47 @@ public class UI : MonoBehaviour
         pController = p;
         pShoot = pS;
         pHealth = pH; 
-        pController.HasControl = false;
     }
 
     void ChangeTutorialText()
     {
         if (tutTextCount < levelTutorials[level].tutorialText.Count)
         {
-            if(pController != null)
-                pController.HasControl = false;
             tutTextCount++;
             uiText.text = levelTutorials[level].tutorialText[tutTextCount - 1];
         }
         else
         {
-            pController.HasControl = true;
-            inGameMenu.SetActive(true);
-            instructionsMenu.SetActive(false);
-            tutorialUIHolder.SetActive(false);
-            tutorialUIBackground.SetActive(false);
-            tutorialUIText.SetActive(false);
-            commandList.gameObject.SetActive(true);
-            HUD.SetActive(true);
-            if (!codeInputHolder.activeInHierarchy)
-                openCodeWindow.gameObject.SetActive(true);
-            instructions.gameObject.SetActive(true);
+            CloseTutorial(); 
         }
+    }
+
+    void CloseTutorial()
+    {
+        if (GameObject.FindGameObjectWithTag("GameController") != null)
+        {
+            var manager = GameObject.FindGameObjectWithTag("GameController");
+            grid = manager.GetComponent<GridGeneration>();
+            code = manager.GetComponent<CodeInput>();
+        }
+
+        if (grid != null)
+            level = grid.level;
+
+        //pController.HasControl = true;
+        inGameMenu.SetActive(true);
+        instructionsMenu.SetActive(false);
+        tutorialUIHolder.SetActive(false);
+        tutorialUIBackground.SetActive(false);
+        tutorialUIText.SetActive(false);
+        commandList.gameObject.SetActive(true);
+        HUD.SetActive(true);
+        if (!codeInputHolder.activeInHierarchy)
+            openCodeWindow.gameObject.SetActive(true);
+        instructions.gameObject.SetActive(true);
+        hints.SetActive(false);
+        playerDead = false;
+        tutTextCount = 0;
     }
     
     void PlayGame()
@@ -294,8 +309,10 @@ public class UI : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Debug.Log("OnSceneLoaded: " + scene.name);
-        if(scene.name != "Menu")
+        if (scene.name != "Menu" && numberOfAttempts == 0)
             SetupTutorialPanel();
+        else
+            CloseTutorial();
 
         if (currentLevel != scene.name)
         {
@@ -317,7 +334,6 @@ public class UI : MonoBehaviour
 
     void OpenCommands()
     {
-        pController.HasControl = false;
         helpPanel.SetActive(true);
         commandList.gameObject.SetActive(false);
         openCodeWindow.gameObject.SetActive(false);
@@ -327,8 +343,9 @@ public class UI : MonoBehaviour
 
     void SubmitCommands()
     {
+        Debug.Log(codeRecieve.text);
         code.GetCode(codeRecieve.text);
-        pController.HasControl = true;
+        //pController.HasControl = true;
         codeInputHolder.SetActive(false);
         HUD.SetActive(true);
         if (!codeInputHolder.activeInHierarchy)
@@ -337,7 +354,6 @@ public class UI : MonoBehaviour
 
     void closeCommands()
     {
-        pController.HasControl = true;
         helpPanel.SetActive(false);
         commandList.gameObject.SetActive(true);
         if (!codeInputHolder.activeInHierarchy)

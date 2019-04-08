@@ -16,10 +16,7 @@ public class PlayerController : MonoBehaviour
     int yMax; 
     int currentX;
     int currentY;
-
-    bool hasControl = true; 
-    public bool HasControl { get { return hasControl; } set { hasControl = value; } }
-
+    
     int nextGridSquare;
     public List<int> moveTrace = new List<int>();
     public List<int> rotateTrace = new List<int>();
@@ -52,13 +49,11 @@ public class PlayerController : MonoBehaviour
     
     void Update()
     {
-        //hasControl = camManager.cinematicOver; 
-        if (hasControl)
-        {
-            SmoothMove();
-            SmoothRotate();
-            RotateTimer();
-        }
+       
+        SmoothMove();
+        SmoothRotate();
+        RotateTimer();
+        
     }
 
     //Takes input from the player (later will be replaced with the user generated code)

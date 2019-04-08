@@ -21,8 +21,7 @@ public class PlayerShoot : MonoBehaviour
     
     void Update()
     {
-        if (!playerController.HasControl)
-            FireBuffer(); 
+        FireBuffer(); 
     }
 
     public void Fire()
@@ -32,7 +31,6 @@ public class PlayerShoot : MonoBehaviour
             Instantiate(bullet, fireLocation.transform.position, fireLocation.transform.rotation);
             ammo--;
             timer = 2; 
-            playerController.HasControl = false; 
         }
     }
     
@@ -40,7 +38,5 @@ public class PlayerShoot : MonoBehaviour
     {
         if (timer > 0)
             timer -= Time.deltaTime;
-        else
-            playerController.HasControl = true;
     }
 }
