@@ -70,7 +70,6 @@ public class CodeInput : MonoBehaviour
 
     public void GetCode(string c)
     {
-        Debug.Log("Recieved");
         userCode = c;
         submitted = true; 
     }
@@ -85,7 +84,6 @@ public class CodeInput : MonoBehaviour
     {
         if(submitted)
         {
-            Debug.Log("Submitted 2");
             string[] code = SplitCode(userCode);
 
             for (int i = 0; i < code.Length; i++)
@@ -133,7 +131,6 @@ public class CodeInput : MonoBehaviour
 
     IEnumerator SubmitCode(string[] code)
     {
-        Debug.Log("Submitted 3");
         for (int i = 0; i < code.Length; i++)
         {
             yield return new WaitUntil(() => complete == true);
@@ -203,8 +200,7 @@ public class CodeInput : MonoBehaviour
         int forIncrement = int.Parse(code[index + 5]);
 
         List<string> commands = new List<string>();
-
-        Debug.Log(userCommands[14]);
+        
 
         for (int j = index + 6; j < code.Length; j++)
         {
@@ -273,7 +269,6 @@ public class CodeInput : MonoBehaviour
 
     void CallMethods(string methodToCall)
     {
-        Debug.Log("Submitted 4");
         if (methodToCall == "TANK.MOVEUP()")
             pController.PlayerInput(0);
         else if (methodToCall == "TANK.MOVEDOWN()")

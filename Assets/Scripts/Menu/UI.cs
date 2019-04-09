@@ -18,19 +18,19 @@ public class UI : MonoBehaviour
     PlayerHealth pHealth;
 
     string currentLevel;
-    int numberOfAttempts; 
+    int numberOfAttempts;
 
     public List<LevelTutorials> levelTutorials = new List<LevelTutorials>();
     public List<LevelTutorials> levelHints = new List<LevelTutorials>();
 
-    public List<int> levelAttempts = new List<int>(); 
+    public List<int> levelAttempts = new List<int>();
 
     [Header("Main Panels")]
     public GameObject mainMenu;
     public GameObject pauseMenu;
     public GameObject inGameMenu;
     public GameObject instructionsMenu;
-    public GameObject HUD; 
+    public GameObject HUD;
 
 
     [Header("Main menu Panels")]
@@ -47,7 +47,7 @@ public class UI : MonoBehaviour
     [Header("Tutorial Panels")]
     public GameObject tutorialUIHolder;
     public GameObject tutorialUIText;
-    public GameObject tutorialUIBackground; 
+    public GameObject tutorialUIBackground;
     public Button tutorialContinue;
     public GameObject helpPanel;
     public GameObject inGamePanel;
@@ -70,7 +70,17 @@ public class UI : MonoBehaviour
 
     [Header("HintsUI")]
     public GameObject hints;
-    public Text hintText; 
+    public Text hintText;
+
+    [Header("GameOver")]
+    public GameObject gameOver;
+    public Text level1Attempts;
+    public Text level1Rating;
+    public Text level2Attempts;
+    public Text level2Rating;
+    public Text level3Attempts;
+    public Text level3Rating;
+    public Button quit; 
 
 
     int tutTextCount;
@@ -83,6 +93,10 @@ public class UI : MonoBehaviour
     int hintsCount = 0; 
 
     Text uiText;
+
+    string rating1;
+    string rating2;
+    string rating3; 
 
     // Start is called before the first frame update
     void Start()
@@ -132,8 +146,13 @@ public class UI : MonoBehaviour
 
     void Setup()
     {
+        rating1 = "Room for improvement";
+        rating2 = "Good!";
+        rating3 = "Excellent!"; 
+
         tutTextCount = 0;
         pauseMenu.SetActive(false);
+        gameOver.SetActive(false);
         restart.gameObject.SetActive(false);
         inGameMenu.SetActive(false);
         instructionsMenu.SetActive(false);
@@ -164,6 +183,7 @@ public class UI : MonoBehaviour
         closeCodeWindow.onClick.AddListener(CloseCodeWindow);
         submitCode.onClick.AddListener(SubmitCommands);
         restart.onClick.AddListener(Respawn);
+        quit.onClick.AddListener(ExitGame);
     }
 
     void Respawn()
@@ -311,27 +331,31 @@ public class UI : MonoBehaviour
     }
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (currentLevel != scene.name)
+        if (scene.name != "3")
         {
-            currentLevel = scene.name;
-            hintsCount = 0;
-            numberOfAttempts = 0;
-            levelAttempts.Add(0);
-            codeRecieve.text = "";
-        }
+            if (currentLevel != scene.name)
+            {
+                currentLevel = scene.name;
+                hintsCount = 0;
+                numberOfAttempts = 0;
+                levelAttempts.Add(0);
+                codeRecieve.text = "";
+            }
 
-        Debug.Log("OnSceneLoaded: " + scene.name);
-        if (scene.name != "Menu" && numberOfAttempts == 0)
-            SetupTutorialPanel();
+            Debug.Log("OnSceneLoaded: " + scene.name);
+            if (scene.name != "Menu" && numberOfAttempts == 0)
+                SetupTutorialPanel();
+            else
+                CloseTutorial();
+
+            if (currentLevel == scene.name && scene.name != "Menu")
+            {
+                numberOfAttempts++;
+                levelAttempts[grid.level]++;
+            }
+        }
         else
-            CloseTutorial();
-
-        if (currentLevel == scene.name && scene.name != "Menu")
-        {
-            numberOfAttempts++;
-            levelAttempts[grid.level]++; 
-        }
-        
+            FinishGame(); 
     }
     void OnDisable()
     {
@@ -367,6 +391,59 @@ public class UI : MonoBehaviour
             openCodeWindow.gameObject.SetActive(true);
         instructions.gameObject.SetActive(true);
         HUD.SetActive(true);
+    }
+
+    void FinishGame()
+    {
+        gameOver.SetActive(true);
+        pauseMenu.SetActive(false);
+        restart.gameObject.SetActive(false);
+        inGameMenu.SetActive(false);
+        instructionsMenu.SetActive(false);
+        tutorialUIHolder.SetActive(false);
+        tutorialUIText.SetActive(false);
+        tutorialUIBackground.SetActive(false);
+        mainMenu.SetActive(false);
+        mainmenuPanel.SetActive(false);
+        optionsMenu.SetActive(false);
+        optionsmenupanel.SetActive(false);
+        helpPanel.SetActive(false);
+        commandList.gameObject.SetActive(false);
+        instructions.gameObject.SetActive(false);
+        codeInputHolder.SetActive(false);
+        HUD.SetActive(false);
+        hints.SetActive(false);
+
+        level1Attempts.text = "Number of Attempts: " + levelAttempts[0].ToString();
+        level2Attempts.text = "Number of Attempts: " + levelAttempts[1].ToString();
+        level3Attempts.text = "Number of Attempts: " + levelAttempts[2].ToString();
+
+        if (levelAttempts[0] <= 3)
+            level1Rating.text = rating3;
+        else if (levelAttempts[0] <= 5)
+            level1Rating.text = rating2;
+        else if(levelAttempts[0] > 5)
+            level1Rating.text = rating1;
+
+        if (levelAttempts[1] <= 3)
+            level2Rating.text = rating3;
+        else if (levelAttempts[1] <= 5)
+            level2Rating.text = rating2;
+        else if (levelAttempts[1] > 5)
+            level2Rating.text = rating1;
+
+        if (levelAttempts[2] <= 3)
+            level3Rating.text = rating3;
+        else if (levelAttempts[2] <= 5)
+            level3Rating.text = rating2;
+        else if (levelAttempts[2] > 5)
+            level3Rating.text = rating1;
+
+    }
+
+    void ExitGame()
+    {
+        Application.Quit(); 
     }
 }
 
