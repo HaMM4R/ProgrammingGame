@@ -317,6 +317,7 @@ public class UI : MonoBehaviour
             hintsCount = 0;
             numberOfAttempts = 0;
             levelAttempts.Add(0);
+            codeRecieve.text = "";
         }
 
         Debug.Log("OnSceneLoaded: " + scene.name);
@@ -330,8 +331,7 @@ public class UI : MonoBehaviour
             numberOfAttempts++;
             levelAttempts[grid.level]++; 
         }
-
-        codeRecieve.text = "";
+        
     }
     void OnDisable()
     {
