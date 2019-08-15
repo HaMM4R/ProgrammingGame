@@ -12,12 +12,13 @@ public class CodeInput : MonoBehaviour
         public List<string> funcCommands; 
     }
     
-
     PlayerShoot pShoot;
     PlayerController pController;
 
     List<string> userCommands = new List<string>();
     public List<Functions> functions = new List<Functions>();
+
+    UI userUI;
 
     string userCode;
 
@@ -33,6 +34,8 @@ public class CodeInput : MonoBehaviour
 
     void Start()
     {
+        userUI = GameObject.FindGameObjectWithTag("UITag").GetComponent<UI>(); 
+
         complete = true;
         failed = false;
         allCommandsComplete = false;
@@ -69,6 +72,13 @@ public class CodeInput : MonoBehaviour
     }
 
     public void GetCode(string c)
+    {
+        userUI.CreateFunctionButton(c); 
+        //userCode = c;
+        //submitted = true; 
+    }
+
+    public void SetCode(string c)
     {
         userCode = c;
         submitted = true; 

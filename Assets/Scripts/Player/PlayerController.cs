@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     int currentY;
     
     int nextGridSquare;
+
     public List<int> moveTrace = new List<int>();
     public List<int> rotateTrace = new List<int>();
 
@@ -28,6 +29,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         var Manager = GameObject.FindGameObjectWithTag("GameController");
+
         grid = Manager.GetComponent<GridGeneration>();
         codeInput = Manager.GetComponent<CodeInput>();
 
@@ -49,11 +51,9 @@ public class PlayerController : MonoBehaviour
     
     void Update()
     {
-       
         SmoothMove();
         SmoothRotate();
         RotateTimer();
-        
     }
 
     //Takes input from the player (later will be replaced with the user generated code)
